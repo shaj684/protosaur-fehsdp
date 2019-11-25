@@ -16,7 +16,6 @@ int main(void) {
     class Dino {
     private:
         int frame, x, y, velocity;
-
     };
 
     float x,y;
@@ -33,4 +32,8 @@ int main(void) {
         }
     }
     return 0;
+}
+int main() {
+	// define variables
+
 }
