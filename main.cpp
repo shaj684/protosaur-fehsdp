@@ -11,3 +11,8 @@
 #include <FEHUtility.h>
 #include <FEHLCD.h>
 */
+
+int main() {
+	// define variables
+
+}
