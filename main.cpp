@@ -29,6 +29,12 @@ class dino {
 
 int main(void) {
 
+    bool gameLoop = true;
+    // Main Loop
+    while(gameLoop){
+        //check collisions, check input, redraw, repeat
+    }
+
     /* Default code from QT Creator project init
     float x,y;
 
