@@ -20,7 +20,7 @@
 #define gravity 1       // gravity acceleration constant
 //Positions
 #define PLANEY 200      // platform height
-#define DINOX 40        // dino position
+#define DINOX 52        // dino position
 // Velocities
 #define JUMP_VELY -5    // Dino initial jump velocity
 #define OBST_VEL -3     // Obstacle velocity
@@ -56,6 +56,7 @@ int main(void) {
 
     // Main Loop
     while (gameLoop) {
+
         //check collisions, check input, redraw, repeat
     }
 }
