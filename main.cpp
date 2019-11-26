@@ -22,7 +22,7 @@ class dino {
         bool onGround;
         bool jumping;
     public:
-        dino(int _frame = 0, int _x = 0, int _y = 0, int _velocity = 0, bool _onGround = true, bool _jumping = true);
+        dino(int _frame = 0, int _x = 0, int _y = 0, int _velocity = 0, bool _onGround = true, bool _jumping = false);
         void jump(int x, int y);
         void hit();
 };
@@ -30,8 +30,9 @@ class dino {
 int main(void) {
 
     bool gameLoop = true;
+
     // Main Loop
-    while(gameLoop){
+    while (gameLoop) {
         //check collisions, check input, redraw, repeat
     }
 
@@ -61,4 +62,14 @@ dino::dino(int _frame, int _x, int _y, int _velocity, bool _onGround, bool _jump
     velocity    = _velocity;
     onGround    = _onGround;
     jumping     = _jumping;
+}
+
+// Jump function
+void jump(int x, int y) {
+
+}
+
+// Dino collides with obstacle
+void hit() {
+
 }
