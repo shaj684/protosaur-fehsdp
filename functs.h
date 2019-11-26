@@ -7,19 +7,20 @@
 #include <FEHLCD.h>
 #include <LCDColors.h>
 
-void dinodraw() {
+void dinodraw(int x, int y) {
 	LCD.SetFontColor(GHOSTWHITE);
 }
 
-void obstacledraw() {
+void obstacledraw(int x, int y) {
 	LCD.SetFontColor(SPRINGGREEN);
 }
 
 void platformdraw() {
-	LCD.SetFontColor(SPRINGGREEN);
+	LCD.SetFontColor(GOLDENROD);
+	LCD.DrawHorizontalLine(PLANEY, 0, 319);
 }
 
-void menudraw() {
+void gameoverdraw() {
 	LCD.SetFontColor(GHOSTWHITE);
 }
 
