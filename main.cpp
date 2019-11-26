@@ -11,10 +11,13 @@
 #include <FEHIO.h>
 #include <FEHUtility.h>
 #include <FEHLCD.h>
+#include <LCDColors.h>
 */
 
-// gravity acceleration constant
+// gravity acceleration constant + colors(subject to change)
 #define gravity 1
+#define BLACK
+#define SPRINGGREEN
 
 class dino {
     private:
@@ -62,6 +65,11 @@ dino::dino(int _frame, int _x, int _y, int _velocity, bool _onGround, bool _jump
     velocity    = _velocity;
     onGround    = _onGround;
     jumping     = _jumping;
+}
+
+void dino::dinodraw() {
+	LCD.SetFontColor()
+	LCD.DrawPixel();
 }
 
 // Jump function
