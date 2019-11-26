@@ -48,16 +48,25 @@ class obstacle {
 };
 
 int main(void) {
-
-    bool gameLoop = true;
-    bool collision = false;
+    bool gameLoop = true;       // main flag
+    bool collision = false;     // dino collision with obstacle
     dino Dino;
     obstacle Obstacle;
+    ButtonBoard Button(FEHIO::FEHIOPort); // button
 
     // Main Loop
     while (gameLoop) {
+        int timeInit = TimeNow();   // (ms)
 
-        //check collisions, check input, redraw, repeat
+        //while(TimeNow() - timeInit < SLEEP && !Button.MiddlePressed());
+        // or...
+        
+        if (Button.MiddlePressed()){
+            // check if dino is on ground, if so begin jump (set vely to JUMP_CONST)
+        }
+        if (TimeNow() - timeInit > SLEEP){
+            //check collisions, check input, redraw
+        }
     }
 }
 
