@@ -14,8 +14,17 @@
 #include <LCDColors.h>
 */
 
-// gravity acceleration constant + colors(subject to change)
-#define gravity 1
+// INITS
+#define SLEEP 30        // sleep timing (ms)
+#define gravity 1       // gravity acceleration constant
+//Positions
+#define PLANEY 200      // platform height
+#define DINOX 40        // dino position
+// Velocities
+#define JUMP_VELY -5    // Dino initial jump velocity
+#define OBST_VEL -3     // Obstacle velocity
+
+// colors(subject to change)
 #define BLACK
 #define SPRINGGREEN
 
@@ -30,9 +39,19 @@ class dino {
         void hit();
 };
 
+class obstacle {
+    private:
+        int x, y, velx;
+    public:
+        obstacle(int _x, int _y  = PLANEY, int _velx = OBST_VEL);
+};
+
 int main(void) {
 
     bool gameLoop = true;
+    bool collision = false;
+    dino Dino;
+    obstacle Obstacle;
 
     // Main Loop
     while (gameLoop) {
