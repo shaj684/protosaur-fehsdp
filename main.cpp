@@ -58,23 +58,6 @@ int main(void) {
     while (gameLoop) {
         //check collisions, check input, redraw, repeat
     }
-
-    /* Default code from QT Creator project init
-    float x,y;
-
-    LCD.Clear( FEHLCD::Black );
-    LCD.SetFontColor( FEHLCD::White );
-
-    while( true )
-    {
-        if( LCD.Touch(&x,&y) )
-        {
-            LCD.WriteLine( "Hello World!" );
-            Sleep( 100 );
-        }
-    }
-    return 0;
-    */
 }
 
 // Dino Constructor
