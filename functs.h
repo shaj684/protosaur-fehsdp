@@ -7,11 +7,25 @@
 #include <FEHLCD.h>
 #include <LCDColors.h>
 
-void dino::dinodraw() {
-	LCD.SetFontColor()
-	LCD.DrawPixel();
+void dinodraw() {
+	LCD.SetFontColor(GHOSTWHITE);
 }
 
+void obstacledraw() {
+	LCD.SetFontColor(SPRINGGREEN);
+}
+
+void platformdraw() {
+	LCD.SetFontColor(SPRINGGREEN);
+}
+
+void menudraw() {
+	LCD.SetFontColor(GHOSTWHITE);
+}
+
+void checkbutton() {
+
+}
 // Jump function
 void jump(int x, int y) {
 

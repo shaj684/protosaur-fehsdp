@@ -17,7 +17,7 @@
 
 // INITS
 #define SLEEP 30        // sleep timing (ms)
-#define gravity 1       // gravity acceleration constant
+#define GRAVITY 1       // gravity acceleration constant
 //Positions
 #define PLANEY 200      // platform height
 #define DINOX 40        // dino position
@@ -26,8 +26,9 @@
 #define OBST_VEL -3     // Obstacle velocity
 
 // colors(subject to change)
-#define BLACK
-#define SPRINGGREEN
+#define GHOSTWHITE		// Dino + Menu
+#define SPRINGGREEN		// Cactus
+#define	GOLDENROD		// Platform 
 
 class dino {
     private:
@@ -61,11 +62,18 @@ int main(void) {
 }
 
 // Dino Constructor
-dino::dino(int _frame, int _x, int _y, int _velocity, bool _onGround, bool _jumping){
+dino::dino(int _frame, int _x, int _y, int _velocity, bool _onGround, bool _jumping) {
     frame       = _frame;
     x           = _x;
     y           = _y;
     velocity    = _velocity;
     onGround    = _onGround;
     jumping     = _jumping;
+}
+
+// Obstacle Constructor
+obstacle::obstacle (int _x, int _y, int _velx, bool _onGround, bool _jumping) {
+	x			= _x;
+	y			= _y;
+	velx		= _velx;
 }
