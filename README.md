@@ -21,3 +21,14 @@ Protosaur, the game. Developed for OSU's FEH SDP
 
 
 # ----------------------------------
+Day 0 (11/22/19)
+    - Creating project
+
+Day 1 (11/24/19)
+    - Deciding game structure
+    - 
+
+Day 2 (11/25/19)
+    - Created player classes and member variables
+    - Found Proteus documentation that can be implemented
+    - Initialized Git Repository
