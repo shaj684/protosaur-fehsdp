@@ -170,10 +170,46 @@ void dinodraw(int frame, int x, int y) {
 
 void obstacledraw(int theme, int frame, int x, int y) {
 	LCD.SetFontColor(SPRINGGREEN);
-	// Input (x, y) is centerpoint of collision circle
+	// Cactus: Theme = 0
+	// Input (x, y) is (0, 0) in reference to Excel
 	// Adjust input to draw obstacle
-	x = x - 9;
-	y = y - 9;
+	x = x - 0;
+	y = y - 0;
+
+	switch (frame) {
+	case 0:		
+		LCD.DrawHorizontalLine(12 + y, 6 + x, 8 + x);	// Single Mid-size Cactus
+		LCD.DrawHorizontalLine(13 + y, 5 + x, 9 + x);
+		LCD.DrawHorizontalLine(14 + y, 5 + x, 9 + x);
+		LCD.DrawHorizontalLine(15 + y, 5 + x, 9 + x);
+		LCD.DrawHorizontalLine(16 + y, 5 + x, 9 + x);
+		LCD.DrawPixel(1, 17); LCD.DrawPixel(13, 17);
+
+		LCD.DrawHorizontalLine(18 + y, 0 + x, 2 + x);
+		LCD.DrawHorizontalLine(18 + y, 12 + x, 14 + x);
+		LCD.DrawHorizontalLine(18 + y, 5 + x, 9 + x);
+		LCD.DrawHorizontalLine(19 + y, 0 + x, 2 + x);
+		LCD.DrawHorizontalLine(19 + y, 12 + x, 14 + x);
+		LCD.DrawHorizontalLine(19 + y, 5 + x, 9 + x);
+		LCD.DrawHorizontalLine(20 + y, 0 + x, 2 + x);
+		LCD.DrawHorizontalLine(20 + y, 12 + x, 14 + x);
+		LCD.DrawHorizontalLine(20 + y, 5 + x, 9 + x);
+		LCD.DrawHorizontalLine(21 + y, 0 + x, 2 + x);
+		LCD.DrawHorizontalLine(21 + y, 12 + x, 14 + x);
+		LCD.DrawHorizontalLine(21 + y, 5 + x, 9 + x);
+
+		LCD.DrawHorizontalLine(22 + y, 0 + x, 9 + x);
+		LCD.DrawHorizontalLine(22 + y, 12 + x, 14 + x);
+
+		break;
+	case 1:
+		break;
+	case 2:
+		break;
+	default:
+		break;
+
+	}
 }
 
 void platformdraw() {
