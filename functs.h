@@ -7,13 +7,50 @@
 #include <FEHLCD.h>
 #include <LCDColors.h>
 
-void dinodraw(int frame, int x, int y) {
-	LCD.SetFontColor(GHOSTWHITE);
+// Calculate obstacle orange reference point 
+void obstacleRP(int frame, int x, int y) {
+	switch (frame) {
+	case 0:
 
-	// Input (x, y) is centerpoint of collision circle
+		break;
+	case 1:
+		break;
+	case 2:
+		break;
+	default:
+		break;
+	}
+}
+
+// Calculate dino collision circle centerpoint
+void dinoCCC(int frame, int x, int y) {
+
+
+}
+
+// Check distance
+bool collision(int x1, int y1, int x2, int y2, int rad) {
+	d = abs(sqrt(pow(x2 - y2, 2) + pow(x1 - y1, 2)));
+	if (d < rad) {
+		//collision occurred
+		return true;
+	}
+	else { return false; }
+}
+
+void platformdraw() {
+	LCD.SetFontColor(GOLDENROD);
+	LCD.DrawHorizontalLine(PLANEY, 0, 319);
+}
+
+// Pass in the (x, y) in reference to lower left corner
+void dinodraw(int theme, int frame, int x, int y) {
+	LCD.SetFontColor(GHOSTWHITE);
+	// Protosaur: Theme = 0
+	// Input (x, y) is  collision circle centerpoint, (9, 9) in Excel
 	// Adjust input to draw dino
-	x = x - 9;
-	y = y - 9;
+	x = (x - 9);
+	y = (y - 9) + (PLANEY - 1) - 39;
 
 	LCD.DrawHorizontalLine(0 + y, 22 + x, 37 + x);		// Top Head
 	LCD.DrawHorizontalLine(1 + y, 22 + x, 37 + x);
@@ -171,50 +208,91 @@ void dinodraw(int frame, int x, int y) {
 void obstacledraw(int theme, int frame, int x, int y) {
 	LCD.SetFontColor(SPRINGGREEN);
 	// Cactus: Theme = 0
-	// Input (x, y) is (0, 0) in reference to Excel
-	// Adjust input to draw obstacle
-	x = x - 0;
-	y = y - 0;
+	// Input (x, y) is obstacle orange reference point see Excel
+	// Adjust inputs to draw obstacle
 
 	switch (frame) {
-	case 0:		
-		LCD.DrawHorizontalLine(12 + y, 6 + x, 8 + x);	// Single Mid-size Cactus
-		LCD.DrawHorizontalLine(13 + y, 5 + x, 9 + x);
-		LCD.DrawHorizontalLine(14 + y, 5 + x, 9 + x);
-		LCD.DrawHorizontalLine(15 + y, 5 + x, 9 + x);
-		LCD.DrawHorizontalLine(16 + y, 5 + x, 9 + x);
-		LCD.DrawPixel(1, 17); LCD.DrawPixel(13, 17);
+	case 0:	
+		x = x - 4;
+		y = (y - 10) - 39;
+		LCD.DrawVerticalLine(0 + x, 18 + y, 22 + y);	// Single Mid-size Cactus
+		LCD.DrawVerticalLine(1 + x, 17 + y, 23 + y);
+		LCD.DrawVerticalLine(2 + x, 18 + y, 24 + y);
+		LCD.DrawVerticalLine(3 + x, 22 + y, 24 + y);
+		LCD.DrawVerticalLine(4 + x, 22 + y, 24 + y);
 
-		LCD.DrawHorizontalLine(18 + y, 0 + x, 2 + x);
-		LCD.DrawHorizontalLine(18 + y, 12 + x, 14 + x);
-		LCD.DrawHorizontalLine(18 + y, 5 + x, 9 + x);
-		LCD.DrawHorizontalLine(19 + y, 0 + x, 2 + x);
-		LCD.DrawHorizontalLine(19 + y, 12 + x, 14 + x);
-		LCD.DrawHorizontalLine(19 + y, 5 + x, 9 + x);
-		LCD.DrawHorizontalLine(20 + y, 0 + x, 2 + x);
-		LCD.DrawHorizontalLine(20 + y, 12 + x, 14 + x);
-		LCD.DrawHorizontalLine(20 + y, 5 + x, 9 + x);
-		LCD.DrawHorizontalLine(21 + y, 0 + x, 2 + x);
-		LCD.DrawHorizontalLine(21 + y, 12 + x, 14 + x);
-		LCD.DrawHorizontalLine(21 + y, 5 + x, 9 + x);
+		LCD.DrawVerticalLine(5 + x, 13 + y, 39 + y);	// Mid 
+		LCD.DrawVerticalLine(6 + x, 12 + y, 39 + y);
+		LCD.DrawVerticalLine(7 + x, 12 + y, 39 + y);
+		LCD.DrawVerticalLine(8 + x, 12 + y, 39 + y);
+		LCD.DrawVerticalLine(9 + x, 13 + y, 39 + y);
 
-		LCD.DrawHorizontalLine(22 + y, 0 + x, 9 + x);
-		LCD.DrawHorizontalLine(22 + y, 12 + x, 14 + x);
-
+		LCD.DrawVerticalLine(10 + x, 26 + y, 28 + y);	// Right
+		LCD.DrawVerticalLine(11 + x, 26 + y, 28 + y);
+		LCD.DrawVerticalLine(12 + x, 18 + y, 28 + y);
+		LCD.DrawVerticalLine(13 + x, 17 + y, 27 + y);
+		LCD.DrawVerticalLine(14 + x, 18 + y, 26 + y);
 		break;
 	case 1:
+		LCD.DrawVerticalLine(0 + x, 15 + y, 28 + y);	// Double Mid-size Cactus
+		LCD.DrawVerticalLine(1 + x, 14 + y, 29 + y);	// Cactus 1
+		LCD.DrawVerticalLine(2 + x, 15 + y, 30 + y);
+		LCD.DrawVerticalLine(3 + x, 28 + y, 30 + y);
+		LCD.DrawVerticalLine(4 + x, 28 + y, 30 + y);
+
+		LCD.DrawVerticalLine(5 + x, 9 + y, 39 + y);		// Mid 
+		LCD.DrawVerticalLine(6 + x, 8 + y, 39 + y);
+		LCD.DrawVerticalLine(7 + x, 8 + y, 39 + y);
+		LCD.DrawVerticalLine(8 + x, 8 + y, 39 + y);
+		LCD.DrawVerticalLine(9 + x, 9 + y, 39 + y);
+		LCD.DrawVerticalLine(10 + x, 19 + y, 21 + y);	
+		LCD.DrawVerticalLine(11 + x, 19 + y, 21 + y);
+
+		LCD.DrawVerticalLine(12 + x, 11 + y, 21 + y);		// Start Cactus 2
+		LCD.DrawVerticalLine(12 + x, 26 + y, 29 + y);
+		LCD.DrawVerticalLine(13 + x, 10 + y, 20 + y);
+		LCD.DrawVerticalLine(13 + x, 25 + y, 30 + y);
+		LCD.DrawVerticalLine(14 + x, 11 + y, 19 + y);
+		LCD.DrawVerticalLine(14 + x, 26 + y, 31 + y);
+
+		LCD.DrawVerticalLine(15 + x, 30 + y, 31 + y);
+		LCD.DrawVerticalLine(16 + x, 30 + y, 31 + y);
+		LCD.DrawVerticalLine(17 + x, 17 + y, 39 + y);
+		LCD.DrawVerticalLine(18 + x, 16 + y, 39 + y);
+		LCD.DrawVerticalLine(19 + x, 17 + y, 39 + y);
+
+		LCD.DrawVerticalLine(20 + x, 30 + y, 31 + y);
+		LCD.DrawVerticalLine(21 + x, 30 + y, 31 + y);
+		LCD.DrawVerticalLine(22 + x, 26 + y, 31 + y);
+		LCD.DrawVerticalLine(23 + x, 25 + y, 30 + y);
+		LCD.DrawVerticalLine(24 + x, 26 + y, 29 + y);
 		break;
 	case 2:
+		LCD.DrawVerticalLine(0 + x, 15 + y, 25 + y);	// Single Lg-size Cactus
+		LCD.DrawVerticalLine(1 + x, 14 + y, 26 + y);
+		LCD.DrawVerticalLine(2 + x, 14 + y, 26 + y);
+		LCD.DrawVerticalLine(3 + x, 15 + y, 27 + y);
+		LCD.DrawVerticalLine(4 + x, 24 + y, 27 + y);
+		LCD.DrawVerticalLine(5 + x, 24 + y, 27 + y);
+
+		LCD.DrawVerticalLine(6 + x, 1 + y, 39 + y);		// Mid 
+		LCD.DrawVerticalLine(7 + x, 0 + y, 39 + y);
+		LCD.DrawVerticalLine(8 + x, 0 + y, 39 + y);
+		LCD.DrawVerticalLine(9 + x, 0 + y, 39 + y);
+		LCD.DrawVerticalLine(10 + x, 0 + y, 39 + y);
+		LCD.DrawVerticalLine(11 + x, 1 + y, 39 + y);
+
+		LCD.DrawVerticalLine(12 + x, 21 + y, 24 + y);	// Right
+		LCD.DrawVerticalLine(13 + x, 21 + y, 24 + y);
+		LCD.DrawVerticalLine(14 + x, 8 + y, 24 + y);
+		LCD.DrawVerticalLine(15 + x, 7 + y, 23 + y);
+		LCD.DrawVerticalLine(16 + x, 7 + y, 22 + y);
+		LCD.DrawVerticalLine(17 + x, 8 + y, 21 + y);
 		break;
 	default:
 		break;
 
 	}
-}
-
-void platformdraw() {
-	LCD.SetFontColor(GOLDENROD);
-	LCD.DrawHorizontalLine(PLANEY, 0, 319);
 }
 
 void gameoverdraw() {
@@ -224,6 +302,7 @@ void gameoverdraw() {
 void checkbutton() {
 
 }
+
 // Jump function
 void jump(int x, int y) {
 

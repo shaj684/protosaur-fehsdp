@@ -9,7 +9,9 @@
 #include <stdbool.h>
 #include <math.h>
 #include "functs.h"
+
 // Proteus Directives
+// Proteus is 320 x 240 pixels (min input is 0)
 #include <FEHIO.h>
 #include <FEHUtility.h>
 #include <FEHLCD.h>
@@ -17,41 +19,66 @@
 
 
 // INITS
-#define SLEEP 30        // sleep timing (ms)
-#define GRAVITY 1       // gravity acceleration constant
+#define SLEEP 30        // Sleep timing (ms)
+#define GRAVITY 1       // Gravity acceleration constant
+
 // Positions
-#define PLANEY 200      // platform height
-#define DINOX 52        // dino position
-#define DINORAD 30      // dino collision radius from central point
+#define PLANEY 200      // Platform height, (PLANEY - 1) = stuff sitting on platform
+#define DINOX 52        // Dino position, 40 x 40 pixel grid
+#define OBSTX 290		// Obstacle position, obstacle  width is 24 pixels
+#define DINORAD 30      // Dino collision radius from central point
 
 // Velocities
 #define JUMP_VELY -5    // Dino initial jump velocity
 #define OBST_VEL -3     // Obstacle velocity
 
-// colors(subject to change)
+// Colors
 #define GHOSTWHITE		// Dino + Menu
 #define SPRINGGREEN		// Cactus
 #define	GOLDENROD		// Platform 
 
+/*
+Frames Dino
+	- 0, Straight Legs
+	- 1, Right Leg Up
+	- 2, Left Leg Up
+	- 3, Eye (Collision)
+
+Frames Cactus
+	- 0, Single Mid-size Cactus
+	- 1, Double Mid-size Cactus
+	- 2, Single Lg-size Cactus
+
+X and Y
+	- (x, y) position of object in terms of lower left corner (0, 39) on Excel
+		- example: input (5, PLANEY) means that object will sit on platform at x = 5 (6 pixels)
+	- (xx, yy) position of the collision circle centerpoint or obstacle orange reference point
+		- example: intput (5, PLANEY) into dinoCCC function to calculate collision circle centerpoint
+*/
+
 class dino {
     private:
-        int frame, x, y, velocity;
+        int theme, frame, x, y, xx, yy, velocity;
         bool onGround;
         bool jumping;
     public:
-        dino(int _frame = 0, int _x = 0, int _y = 0, int _velocity = 0, bool _onGround = true, bool _jumping = false);
+        dino(int _theme = 0, int _frame = 0, int _x = 0, int _y = 0, int _xx = 0, int _yy = 0, int _velocity = 0, bool _onGround = true, bool _jumping = false);
         void jump(int x, int y);
         void hit();
 };
 
 class obstacle {
     private:
-        int frame, theme, x, y, velx;
+        int theme, frame, x, y, xx, yy, velx;
     public:
-        obstacle(int _theme = 0, int _frame = 0, int _x = 0, int _y  = PLANEY, int _velx = OBST_VEL);
+        obstacle(int _theme = 0, int _frame = 0, int _x = 0, int _y  = PLANEY, int _xx = 0, int _yy = 0, int _velx = OBST_VEL);
 };
 
 int main(void) {
+	/*
+	PASS IN DINOX, OBSTX, and PLANEY into the draw functions
+	dino and obstacle are bottom-left aligned (0, 39) in Excel	
+	*/
     bool gameLoop = true;       // main flag
     bool collision = false;     // dino collision with obstacle
     dino Dino;
@@ -66,14 +93,15 @@ int main(void) {
         // (Possible Solution)
 
         // check if dino is on ground, if so begin jump (set vely to JUMP_CONST)
-        if (Button.MiddlePressed() && collision(Dino.x,Dino.y,Dino.x,PLANEY,DINORAD)){
+        if (Button.MiddlePressed() && collision (Dino.xx, Dino.yy, Dino.xx, PLANEY, DINORAD)) {
             Dino.velocity = JUMP_VELY;
         }
 
-        if (TimeNow() - timeInit > SLEEP){
+        if (TimeNow() - timeInit > SLEEP) {
+			
 
-            //check collisions
-            collision(Dino.x,Dino.y,Obstacle.x,Obstacle.y,DINORAD);
+            // check collisions
+            collision(Dino.xx, Dino.yy, Obstacle.xx, Obstacle.yy, DINORAD);
 
             // recalculate positions of objects
 
@@ -83,30 +111,28 @@ int main(void) {
 }
 
 // Dino Constructor
-dino::dino(int _frame, int _x, int _y, int _velocity, bool _onGround, bool _jumping) {
-    frame       = _frame;
+dino::dino(int _theme, int _frame, int _x, int _y, int _xx, int _yy, int _velocity, bool _onGround, bool _jumping) {
+	theme		= _theme;
+	frame       = _frame;
     x           = _x;
     y           = _y;
+	xx			= _xx;
+	yy			= _yy;
     velocity    = _velocity;
     onGround    = _onGround;
     jumping     = _jumping;
 }
 
 // Obstacle Constructor
-obstacle::obstacle (int _theme, int _frame, int _x, int _y, int _velx, bool _onGround, bool _jumping) {
+obstacle::obstacle (int _theme, int _frame, int _x, int _y, int _xx, int _yy, int _velx, bool _onGround, bool _jumping) {
 	theme		= _theme;
 	frame		= _frame; 
 	x			= _x;
 	y			= _y;
+	xx			= _xx;
+	yy			= _yy;
 	velx		= _velx;
 	
 }
 
-// Check distance
-bool collision(int x1, int y1, int x2,int y2, int rad){
-    d = abs(  sqrt(  pow(x2-y2,2)+pow(x1-y1,2)  )  );
-    if (d < rad){
-        //collision occurred
-        return true;
-    } else {return false;}
-}
+

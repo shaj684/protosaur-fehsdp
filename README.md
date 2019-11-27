@@ -40,6 +40,7 @@ Day 2 (11/26/19)
 
 Day 3 (11/27/19)
     - Draw four dino frames 
+	- Draw three cactus frames
     - Collision function
-    - Determined collision circle radius
+    - Determined collision circle radius + centerpoint
 	- Excel mock-up for cloud
