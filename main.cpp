@@ -7,13 +7,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <math.h>
 #include "functs.h"
-/*
+// Proteus Directives
 #include <FEHIO.h>
 #include <FEHUtility.h>
 #include <FEHLCD.h>
 #include <LCDColors.h>
-*/
+
 
 // INITS
 #define SLEEP 30        // sleep timing (ms)
@@ -21,6 +22,7 @@
 // Positions
 #define PLANEY 200      // platform height
 #define DINOX 52        // dino position
+#define DINORAD 30      // dino collision radius from central point
 
 // Velocities
 #define JUMP_VELY -5    // Dino initial jump velocity
@@ -59,15 +61,23 @@ int main(void) {
     // Main Loop
     while (gameLoop) {
         int timeInit = TimeNow();   // (ms)
+        // (Possible Solution)
+        // while(TimeNow() - timeInit < SLEEP && !Button.MiddlePressed());
+        // (Possible Solution)
 
-        //while(TimeNow() - timeInit < SLEEP && !Button.MiddlePressed());
-        // or...
-        
-        if (Button.MiddlePressed()){
-            // check if dino is on ground, if so begin jump (set vely to JUMP_CONST)
+        // check if dino is on ground, if so begin jump (set vely to JUMP_CONST)
+        if (Button.MiddlePressed() && collision(Dino.x,Dino.y,Dino.x,PLANEY,DINORAD)){
+            Dino.velocity = JUMP_VELY;
         }
+
         if (TimeNow() - timeInit > SLEEP){
-            //check collisions, check input, redraw
+
+            //check collisions
+            collision(Dino.x,Dino.y,Obstacle.x,Obstacle.y,DINORAD);
+
+            // recalculate positions of objects
+
+            // redraw
         }
     }
 }
@@ -90,4 +100,13 @@ obstacle::obstacle (int _theme, int _frame, int _x, int _y, int _velx, bool _onG
 	y			= _y;
 	velx		= _velx;
 	
+}
+
+// Check distance
+bool collision(int x1, int y1, int x2,int y2, int rad){
+    d = abs(  sqrt(  pow(x2-y2,2)+pow(x1-y1,2)  )  );
+    if (d < rad){
+        //collision occurred
+        return true;
+    } else {return false;}
 }
