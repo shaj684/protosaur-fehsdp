@@ -44,9 +44,9 @@ class dino {
 
 class obstacle {
     private:
-        int x, y, velx;
+        int frame, theme, x, y, velx;
     public:
-        obstacle(int _x, int _y  = PLANEY, int _velx = OBST_VEL);
+        obstacle(int _theme = 0, int _frame = 0, int _x = 0, int _y  = PLANEY, int _velx = OBST_VEL);
 };
 
 int main(void) {
@@ -83,8 +83,11 @@ dino::dino(int _frame, int _x, int _y, int _velocity, bool _onGround, bool _jump
 }
 
 // Obstacle Constructor
-obstacle::obstacle (int _x, int _y, int _velx, bool _onGround, bool _jumping) {
+obstacle::obstacle (int _theme, int _frame, int _x, int _y, int _velx, bool _onGround, bool _jumping) {
+	theme		= _theme;
+	frame		= _frame; 
 	x			= _x;
 	y			= _y;
 	velx		= _velx;
+	
 }
