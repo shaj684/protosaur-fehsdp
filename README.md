@@ -24,11 +24,22 @@ Protosaur, the game. Developed for OSU's FEH SDP
 Day 0 (11/22/19)
     - Creating project
 
-Day 1 (11/24/19)
+Day 1 (11/25/19)
     - Deciding game structure
-    - 
+    - Reviewed PROTEUS hardware
+	- Asked Drew for advice on animation
 
-Day 2 (11/25/19)
+
+Day 2 (11/26/19)
     - Created player classes and member variables
     - Found Proteus documentation that can be implemented
     - Initialized Git Repository
+	- Excel mock-ups for Dino and Cactus
+	- Choose colors for objects on PROTEUS screen
+	- Determined constants for gravity, sleep, and position of dino
+
+Day 3 (11/27/19)
+    - Draw four dino frames 
+    - Collision function
+    - Determined collision circle radius
+	- Excel mock-up for cloud
