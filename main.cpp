@@ -53,30 +53,30 @@ X and Y
 	- (x, y) position of object in terms of lower left corner (0, 39) on Excel
 		- example: input (5, PLANEY) means that object will sit on platform at x = 5 (6 pixels)
 	- (xx, yy) position of the collision circle centerpoint or obstacle orange reference point
-		- example: intput (5, PLANEY) into dinoCCC function to calculate collision circle centerpoint
+		- example: input (5, PLANEY) into collision function to calculate collision circle centerpoint
 */
 
 class dino {
     private:
-        int theme, frame, x, y, xx, yy, velocity;
+        int theme, frame, x, y, velocity;
         bool onGround;
         bool jumping;
     public:
-        dino(int _theme = 0, int _frame = 0, int _x = 0, int _y = 0, int _xx = 0, int _yy = 0, int _velocity = 0, bool _onGround = true, bool _jumping = false);
+        dino(int _theme = 0, int _frame = 0, int _x = 0, int _y = 0, int _velocity = 0, bool _onGround = true, bool _jumping = false);
         void jump(int x, int y);
         void hit();
 };
 
 class obstacle {
     private:
-        int theme, frame, x, y, xx, yy, velx;
+        int theme, frame, x, y, velx;
     public:
         obstacle(int _theme = 0, int _frame = 0, int _x = 0, int _y  = PLANEY, int _xx = 0, int _yy = 0, int _velx = OBST_VEL);
 };
 
 int main(void) {
 	/*
-	PASS IN DINOX, OBSTX, and PLANEY into the draw functions
+	PASS IN values in terms of DINOX, OBSTX, and PLANEY into the draw functions
 	dino and obstacle are bottom-left aligned (0, 39) in Excel	
 	*/
     bool gameLoop = true;       // main flag
@@ -93,7 +93,7 @@ int main(void) {
         // (Possible Solution)
 
         // check if dino is on ground, if so begin jump (set vely to JUMP_CONST)
-        if (Button.MiddlePressed() && collision (Dino.xx, Dino.yy, Dino.xx, PLANEY, DINORAD)) {
+        if (Button.MiddlePressed() && collision (Dino.frame, Dino.x, Dino.y, Dino.x, PLANEY, DINORAD)) {
             Dino.velocity = JUMP_VELY;
         }
 
@@ -101,7 +101,7 @@ int main(void) {
 			
 
             // check collisions
-            collision(Dino.xx, Dino.yy, Obstacle.xx, Obstacle.yy, DINORAD);
+            collision(Dino.x, Dino.y, Obstacle.frame, Obstacle.x, Obstacle.y, DINORAD);
 
             // recalculate positions of objects
 
@@ -111,28 +111,23 @@ int main(void) {
 }
 
 // Dino Constructor
-dino::dino(int _theme, int _frame, int _x, int _y, int _xx, int _yy, int _velocity, bool _onGround, bool _jumping) {
+dino::dino(int _theme, int _frame, int _x, int _y, int _velocity, bool _onGround, bool _jumping) {
 	theme		= _theme;
 	frame       = _frame;
     x           = _x;
     y           = _y;
-	xx			= _xx;
-	yy			= _yy;
     velocity    = _velocity;
     onGround    = _onGround;
     jumping     = _jumping;
 }
 
 // Obstacle Constructor
-obstacle::obstacle (int _theme, int _frame, int _x, int _y, int _xx, int _yy, int _velx, bool _onGround, bool _jumping) {
+obstacle::obstacle (int _theme, int _frame, int _x, int _y, int _velx, bool _onGround, bool _jumping) {
 	theme		= _theme;
 	frame		= _frame; 
 	x			= _x;
 	y			= _y;
-	xx			= _xx;
-	yy			= _yy;
 	velx		= _velx;
-	
 }
 
 

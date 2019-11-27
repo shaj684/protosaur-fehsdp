@@ -7,31 +7,35 @@
 #include <FEHLCD.h>
 #include <LCDColors.h>
 
-// Calculate obstacle orange reference point 
-void obstacleRP(int frame, int x, int y) {
-	switch (frame) {
+// Check distance
+bool collision(int dinox, int dinoy, int obstFrame, int obstx, int obsty, int rad) {
+	int dinoxx = 0; int dinoyy = 0;
+	int obstxx = 0; int obstyy = 0;
+	
+	// Calculate obstacle orange reference point 
+	switch (obstFrame) {
 	case 0:
-
+		obstxx = (obstx + 4) - OBSTX;
+		obstyy = (obsty - 29) - PLANEY;
 		break;
 	case 1:
+		obstxx = (obstx + 4) - OBSTX;
+		obstyy = (obsty - 33) - PLANEY;
 		break;
 	case 2:
+		obstxx = (obstx + 5) - OBSTX;
+		obstyy = (obsty - 41) - PLANEY;
 		break;
 	default:
 		break;
 	}
-}
-
-// Calculate dino collision circle centerpoint
-void dinoCCC(int frame, int x, int y) {
-
-
-}
-
-// Check distance
-bool collision(int x1, int y1, int x2, int y2, int rad) {
-	d = abs(sqrt(pow(x2 - y2, 2) + pow(x1 - y1, 2)));
+	// Calculate dino collision circle centerpoint
+	dinoxx = (dinox + 9) - DINOX;
+	dinoyy = (dinoy - 30) - PLANEY;
+	
+	d = abs(sqrt(pow(obstxx - obstyy, 2) + pow(dinoxx - dinoyy, 2)));
 	if (d < rad) {
+
 		//collision occurred
 		return true;
 	}
