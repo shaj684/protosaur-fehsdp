@@ -44,3 +44,8 @@ Day 3 (11/27/19)
     - Collision function
     - Determined collision circle radius + centerpoint
 	- Excel mock-up for cloud
+
+Day 5 (11/29/19)
+	- Determined Dino and Obstacle draw arguments (lower left corner)
+	- Created visual representation of PROTEUS 320 x 240 on Excel
+	- Wrote code for check collision

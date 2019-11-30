@@ -297,6 +297,19 @@ void obstacledraw(int theme, int frame, int x, int y) {
 	}
 }
 
+int randomframe() {
+	int num;
+	int frame;
+	num = Random.RandInt();
+
+	while (num > 29999) { num = Random.RandInt(); }
+	if (num >= 0 && num < 9999) { frame = 0; }
+	else if (num >= 9999 && num < 19999) { frame = 1; }
+	else if (num >= 19999 && num < 29999) { frame = 2; }
+
+	return frame;
+}
+
 void gameoverdraw() {
 	LCD.SetFontColor(GHOSTWHITE);
 }

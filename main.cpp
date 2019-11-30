@@ -16,6 +16,7 @@
 #include <FEHUtility.h>
 #include <FEHLCD.h>
 #include <LCDColors.h>
+#include <FEHRandom.h>
 
 
 // INITS
@@ -103,9 +104,11 @@ int main(void) {
 
             // check collisions
 			if (collision(Dino.x, Dino.y, Obstacle.frame, Obstacle.x, Obstacle.y, DINORAD)) {
+				
+				// Collided, dino with large eye
 				Dino.frame = 3;
 				dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
-			
+				obstacledraw(Obstacle.theme, Obstacle.frame, Obstacle.x, Obstacle.y);
 			} else {
 
 				// recalculate positions of objects + Redraw
@@ -116,7 +119,7 @@ int main(void) {
 				Obstacle.x = Obstacle.x + Obstacle.velx;
 
 				dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
-				obstacledraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
+				obstacledraw(Obstacle.theme, randomframe(), Obstacle.x, Obstacle.y);
 
 			} // End of check collision Else statement
         } // End of check time statement
