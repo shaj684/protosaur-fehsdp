@@ -86,37 +86,52 @@ int main(void) {
     dino Dino;
     obstacle Obstacle;
     ButtonBoard Button(FEHIO::Bank2); // Board must be connected to Bank 2 on PROTEUS
-
+    int timeInit = TimeNow();   // (ms)
     // Main Loop
     while (gameLoop) {
-        int timeInit = TimeNow();   // (ms)
+        
         // (Possible Solution)
         // while(TimeNow() - timeInit < SLEEP && !Button.MiddlePressed());
         // (Possible Solution)
 
         // check if dino is on ground, if so begin jump (set vely to JUMP_CONST)
 		// true if buttonboard is pressed, return true if collide
-        if (Button.MiddlePressed() && !collision(Dino.x, Dino.y, Obstacle.frame, Obstacle.x, Obstacle.y, DINORAD)) {
+        if (Button.MiddlePressed() && Dino.y == PLANEY && !Dino.jumping) {
             Dino.velocity = JUMP_VELY;
+            Dino.jumping == true;
         }
 
         if (TimeNow() - timeInit > SLEEP) {
+            // reinitialize timeInit for next pass
+            timeInit = TimeNow();   // (ms)
 
-            // check collisions
+            // check obstacle collision
 			if (collision(Dino.x, Dino.y, Obstacle.frame, Obstacle.x, Obstacle.y, DINORAD)) {
 				
 				// Collided, dino with large eye
 				Dino.frame = 3;
 				dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
 				obstacledraw(Obstacle.theme, Obstacle.frame, Obstacle.x, Obstacle.y);
+
 			} else {
 
 				// recalculate positions of objects + Redraw
+
 				if (Dino.frame < 2) { Dino.frame++; }
 				else { Dino.frame = 0; }
 				
+                // Dino Position
 				Dino.y = Dino.y + Dino.velocity;
+                if (Dino.y > PLANEY){ Dino.y == PLANEY; }   // Check if below platform
+
 				Obstacle.x = Obstacle.x + Obstacle.velx;
+
+                // Check if Dino's in the air
+                if (Dino.y == PLANEY) {
+                    Dino.jumping == false;
+                } else {
+                    Dino.jumping == true;
+                }
 
 				dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
 				obstacledraw(Obstacle.theme, randomframe(), Obstacle.x, Obstacle.y);
