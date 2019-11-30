@@ -21,8 +21,8 @@
 
 
 // INITS
-#define SLEEP 30        // Sleep timing (ms)
-#define GRAVITY 1       // Gravity acceleration constant
+#define SLEEP 33        // Sleep timing (ms)
+#define GRAVITY 2       // Gravity acceleration constant
 
 // Positions
 #define PLANEY 200      // Platform height, (PLANEY - 1) = stuff sitting on platform
@@ -31,7 +31,7 @@
 #define DINORAD 30      // Dino collision radius from central point
 
 // Velocities
-#define JUMP_VELY -5    // Dino initial jump velocity
+#define JUMP_VELY -18    // Dino initial jump velocity
 #define OBST_VEL -3     // Obstacle velocity
 #define MAXJUMP 80		// Max dino jump height 
 
