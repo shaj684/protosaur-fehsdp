@@ -17,6 +17,7 @@
 #include <FEHLCD.h>
 #include <LCDColors.h>
 #include <FEHRandom.h>
+#include <FEHBuzzer.h>
 
 
 // INITS
@@ -32,6 +33,7 @@
 // Velocities
 #define JUMP_VELY -5    // Dino initial jump velocity
 #define OBST_VEL -3     // Obstacle velocity
+#define MAXJUMP 80		// Max dino jump height 
 
 // Colors
 #define GHOSTWHITE		// Dino + Menu
@@ -82,7 +84,6 @@ int main(void) {
 	*/
     bool gameLoop = true;       // main flag
     bool collision = false;     // dino collision with obstacle
-	int maxDinoJump = ;
     dino Dino;
     obstacle Obstacle;
     ButtonBoard Button(FEHIO::Bank2); // Board must be connected to Bank 2 on PROTEUS
@@ -96,7 +97,7 @@ int main(void) {
 
         // check if dino is on ground, if so begin jump (set vely to JUMP_CONST)
 		// true if buttonboard is pressed, return true if collide
-        if (Button.MiddlePressed() && Dino.y == PLANEY && !Dino.jumping) {
+        if (Button.MiddlePressed() && (Dino.y == PLANEY) && !Dino.jumping) {
             Dino.velocity = JUMP_VELY;
             Dino.jumping == true;
         }
@@ -110,29 +111,29 @@ int main(void) {
 				
 				// Collided, dino with large eye
 				Dino.frame = 3;
+				Buzzer.Buzz(100);		
 				dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
 				obstacledraw(Obstacle.theme, Obstacle.frame, Obstacle.x, Obstacle.y);
 
 			} else {
 
+				// Check if dino is below, above, or at the platform
+				if ((Dino.y + 1) < PLANEY) { Dino.jumping == true; } 
+				else if ((Dino.y + 1) == PLANEY) { Dino.jumping == false; }
+				else { Dino.y == PLANEY - 1; }  
+
 				// recalculate positions of objects + Redraw
+				// Same dino frame while jumping
+				if (Dino.jumping) {
+					Dino.y = Dino.y + Dino.velocity;
+					Obstacle.x = Obstacle.x + Obstacle.velx;
+				}
+				else {
+					if (Dino.frame < 2) { Dino.frame++; }
+					else { Dino.frame = 0; }
+				}
 
-				if (Dino.frame < 2) { Dino.frame++; }
-				else { Dino.frame = 0; }
-				
-                // Dino Position
-				Dino.y = Dino.y + Dino.velocity;
-                if (Dino.y > PLANEY){ Dino.y == PLANEY; }   // Check if below platform
-
-				Obstacle.x = Obstacle.x + Obstacle.velx;
-
-                // Check if Dino's in the air
-                if (Dino.y == PLANEY) {
-                    Dino.jumping == false;
-                } else {
-                    Dino.jumping == true;
-                }
-
+				// redraw
 				dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
 				obstacledraw(Obstacle.theme, randomframe(), Obstacle.x, Obstacle.y);
 

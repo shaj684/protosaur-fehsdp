@@ -49,3 +49,9 @@ Day 5 (11/29/19)
 	- Determined Dino and Obstacle draw arguments (lower left corner)
 	- Created visual representation of PROTEUS 320 x 240 on Excel
 	- Wrote code for check collision
+
+Day 6 (11/30/19)
+	- Random integer function to determine obstacle frame
+	- Added buzzer when game over
+	- Determined max dino jump height of 80 pixel
+
