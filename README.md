@@ -54,4 +54,6 @@ Day 6 (11/30/19)
 	- Random integer function to determine obstacle frame
 	- Added buzzer when game over
 	- Determined max dino jump height of 80 pixel
+	- Clear screen after each calculation
+	- Determined new gravity constant based on Chromedino observations
 

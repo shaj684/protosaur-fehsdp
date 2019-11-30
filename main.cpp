@@ -97,7 +97,7 @@ int main(void) {
 
         // check if dino is on ground, if so begin jump (set vely to JUMP_CONST)
 		// true if buttonboard is pressed, return true if collide
-        if (Button.MiddlePressed() && (Dino.y == PLANEY) && !Dino.jumping) {
+        if (Button.MiddlePressed() && ((Dino.y + 1) == PLANEY) && !Dino.jumping) {
             Dino.velocity = JUMP_VELY;
             Dino.jumping == true;
         }
@@ -134,6 +134,8 @@ int main(void) {
 				}
 
 				// redraw
+				LCD.clear();
+				platformdraw();
 				dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
 				obstacledraw(Obstacle.theme, randomframe(), Obstacle.x, Obstacle.y);
 
