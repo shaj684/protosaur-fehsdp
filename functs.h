@@ -15,31 +15,30 @@ bool collision(int dinox, int dinoy, int obstFrame, int obstx, int obsty, int ra
 	// Calculate obstacle orange reference point 
 	switch (obstFrame) {
 	case 0:
-		obstxx = (obstx + 4) - OBSTX;
-		obstyy = (obsty - 29) - PLANEY;
+		obstxx = obstx + 4;
+		obstyy = obsty - 29;
 		break;
 	case 1:
-		obstxx = (obstx + 4) - OBSTX;
-		obstyy = (obsty - 33) - PLANEY;
+		obstxx = obstx + 4;
+		obstyy = obsty - 33;
 		break;
 	case 2:
-		obstxx = (obstx + 5) - OBSTX;
-		obstyy = (obsty - 41) - PLANEY;
+		obstxx = obstx + 5;
+		obstyy = obsty - 39;
 		break;
 	default:
 		break;
 	}
 	// Calculate dino collision circle centerpoint
-	dinoxx = (dinox + 9) - DINOX;
-	dinoyy = (dinoy - 30) - PLANEY;
+	dinoxx = dinox + 9;
+	dinoyy = dinoy - 30;
 	
 	d = abs(sqrt(pow(obstxx - obstyy, 2) + pow(dinoxx - dinoyy, 2)));
 	if (d < rad) {
 
 		//collision occurred
 		return true;
-	}
-	else { return false; }
+	} else { return false; }
 }
 
 void platformdraw() {
@@ -47,14 +46,13 @@ void platformdraw() {
 	LCD.DrawHorizontalLine(PLANEY, 0, 319);
 }
 
-// Pass in the (x, y) in reference to lower left corner
 void dinodraw(int theme, int frame, int x, int y) {
 	LCD.SetFontColor(GHOSTWHITE);
 	// Protosaur: Theme = 0
-	// Input (x, y) is  collision circle centerpoint, (9, 9) in Excel
+	// Input (x, y) is lower left corner of Excel sketch
 	// Adjust input to draw dino
-	x = (x - 9);
-	y = (y - 9) + (PLANEY - 1) - 39;
+	x = x - 0;
+	y = y - 39;
 
 	LCD.DrawHorizontalLine(0 + y, 22 + x, 37 + x);		// Top Head
 	LCD.DrawHorizontalLine(1 + y, 22 + x, 37 + x);
@@ -212,13 +210,13 @@ void dinodraw(int theme, int frame, int x, int y) {
 void obstacledraw(int theme, int frame, int x, int y) {
 	LCD.SetFontColor(SPRINGGREEN);
 	// Cactus: Theme = 0
-	// Input (x, y) is obstacle orange reference point see Excel
+	// Input (x, y) is lower left corner of Excel sketch
 	// Adjust inputs to draw obstacle
 
 	switch (frame) {
 	case 0:	
-		x = x - 4;
-		y = (y - 10) - 39;
+		x = x - 0;
+		y =  y - 39;
 		LCD.DrawVerticalLine(0 + x, 18 + y, 22 + y);	// Single Mid-size Cactus
 		LCD.DrawVerticalLine(1 + x, 17 + y, 23 + y);
 		LCD.DrawVerticalLine(2 + x, 18 + y, 24 + y);
@@ -279,12 +277,12 @@ void obstacledraw(int theme, int frame, int x, int y) {
 		LCD.DrawVerticalLine(4 + x, 24 + y, 27 + y);
 		LCD.DrawVerticalLine(5 + x, 24 + y, 27 + y);
 
-		LCD.DrawVerticalLine(6 + x, 1 + y, 39 + y);		// Mid 
-		LCD.DrawVerticalLine(7 + x, 0 + y, 39 + y);
-		LCD.DrawVerticalLine(8 + x, 0 + y, 39 + y);
-		LCD.DrawVerticalLine(9 + x, 0 + y, 39 + y);
-		LCD.DrawVerticalLine(10 + x, 0 + y, 39 + y);
-		LCD.DrawVerticalLine(11 + x, 1 + y, 39 + y);
+		LCD.DrawVerticalLine(6 + x, 3 + y, 39 + y);		// Mid 
+		LCD.DrawVerticalLine(7 + x, 2 + y, 39 + y);
+		LCD.DrawVerticalLine(8 + x, 2 + y, 39 + y);
+		LCD.DrawVerticalLine(9 + x, 2 + y, 39 + y);
+		LCD.DrawVerticalLine(10 + x, 2 + y, 39 + y);
+		LCD.DrawVerticalLine(11 + x, 3 + y, 39 + y);
 
 		LCD.DrawVerticalLine(12 + x, 21 + y, 24 + y);	// Right
 		LCD.DrawVerticalLine(13 + x, 21 + y, 24 + y);

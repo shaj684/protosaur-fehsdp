@@ -24,7 +24,7 @@
 
 // Positions
 #define PLANEY 200      // Platform height, (PLANEY - 1) = stuff sitting on platform
-#define DINOX 52        // Dino position, 40 x 40 pixel grid
+#define DINOX 20        // Dino position, 40 x 40 pixel grid
 #define OBSTX 290		// Obstacle position, obstacle  width is 24 pixels
 #define DINORAD 30      // Dino collision radius from central point
 
@@ -77,13 +77,14 @@ class obstacle {
 int main(void) {
 	/*
 	PASS IN values in terms of DINOX, OBSTX, and PLANEY into the draw functions
-	dino and obstacle are bottom-left aligned (0, 39) in Excel	
+	dino and obstacle function inputs are bottom left corner of Excel image	
 	*/
     bool gameLoop = true;       // main flag
     bool collision = false;     // dino collision with obstacle
+	int maxDinoJump = ;
     dino Dino;
     obstacle Obstacle;
-    ButtonBoard Button(FEHIO::FEHIOPort); // button
+    ButtonBoard Button(FEHIO::Bank2); // Board must be connected to Bank 2 on PROTEUS
 
     // Main Loop
     while (gameLoop) {
@@ -93,21 +94,33 @@ int main(void) {
         // (Possible Solution)
 
         // check if dino is on ground, if so begin jump (set vely to JUMP_CONST)
-        if (Button.MiddlePressed() && collision (Dino.frame, Dino.x, Dino.y, Dino.x, PLANEY, DINORAD)) {
+		// true if buttonboard is pressed, return true if collide
+        if (Button.MiddlePressed() && !collision(Dino.x, Dino.y, Obstacle.frame, Obstacle.x, Obstacle.y, DINORAD)) {
             Dino.velocity = JUMP_VELY;
         }
 
         if (TimeNow() - timeInit > SLEEP) {
-			
 
             // check collisions
-            collision(Dino.x, Dino.y, Obstacle.frame, Obstacle.x, Obstacle.y, DINORAD);
+			if (collision(Dino.x, Dino.y, Obstacle.frame, Obstacle.x, Obstacle.y, DINORAD)) {
+				Dino.frame = 3;
+				dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
+			
+			} else {
 
-            // recalculate positions of objects
+				// recalculate positions of objects + Redraw
+				if (Dino.frame < 2) { Dino.frame++; }
+				else { Dino.frame = 0; }
+				
+				Dino.y = Dino.y + Dino.velocity;
+				Obstacle.x = Obstacle.x + Obstacle.velx;
 
-            // redraw
-        }
-    }
+				dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
+				obstacledraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
+
+			} // End of check collision Else statement
+        } // End of check time statement
+    } // End of while gameloop statement
 }
 
 // Dino Constructor
