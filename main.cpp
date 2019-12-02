@@ -82,12 +82,21 @@ int main(void) {
 	PASS IN values in terms of DINOX, OBSTX, and PLANEY into the draw functions
 	dino and obstacle function inputs are bottom left corner of Excel image	
 	*/
-    bool gameLoop = true;       // main flag
-    bool collision = false;     // dino collision with obstacle
+    bool gameLoop = true;					// main flag
+    bool collision = false;					// dino collision with obstacle
     dino Dino;
     obstacle Obstacle;
-    ButtonBoard Button(FEHIO::Bank2); // Board must be connected to Bank 2 on PROTEUS
-    int timeInit = TimeNow();   // (ms)
+
+    ButtonBoard Button(FEHIO::Bank2);		// Board must be connected to Bank 2 on PROTEUS
+    int timeInit = TimeNow();				// (ms)
+	float u, v;								// touch positions x, y
+	LCD.Touch(&u, &v);
+	bool pressReplay = true;				// while loop condition to check replay
+
+	// Icon at the center of the PROTEUS
+	FEHIcon::Icon replay[1];				// declare icon for the replay option
+	replay.SetProperties("REPLAY", 159, 102, 24, 40, GOLDENROD, GOLDENROD);			
+
     // Main Loop
     while (gameLoop) {
         
@@ -114,32 +123,39 @@ int main(void) {
 				Buzzer.Buzz(100);		
 				dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
 				obstacledraw(Obstacle.theme, Obstacle.frame, Obstacle.x, Obstacle.y);
+				replay.Draw();
 
-			} else {
-
-				// Check if dino is below, above, or at the platform
-				if ((Dino.y + 1) < PLANEY) { Dino.jumping == true; } 
-				else if ((Dino.y + 1) == PLANEY) { Dino.jumping == false; }
-				else { Dino.y == PLANEY - 1; }  
-
-				// recalculate positions of objects + Redraw
-				// Same dino frame while jumping
-				if (Dino.jumping) {
-					Dino.y = Dino.y + Dino.velocity;
-					Obstacle.x = Obstacle.x + Obstacle.velx;
+				// Check if the player wants to replay
+				while (pressReplay) {
+					if (replay.Pressed(u, v, 0)) {
+						pressReplay = true;
+						break;
+					} else { pressReplay = false; }
 				}
-				else {
-					if (Dino.frame < 2) { Dino.frame++; }
-					else { Dino.frame = 0; }
-				}
+			}
 
-				// redraw
-				LCD.clear();
-				platformdraw();
-				dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
-				obstacledraw(Obstacle.theme, randomframe(), Obstacle.x, Obstacle.y);
+			// Check if dino is below, above, or at the platform
+			if ((Dino.y + 1) < PLANEY) { Dino.jumping == true; }
+			else if ((Dino.y + 1) == PLANEY) { Dino.jumping == false; }
+			else { Dino.y == PLANEY - 1; }
 
-			} // End of check collision Else statement
+			// recalculate positions of objects + Redraw
+			// Same dino frame while jumping
+			if (Dino.jumping) {
+				Dino.y = Dino.y + Dino.velocity;
+				Obstacle.x = Obstacle.x + Obstacle.velx;
+			}
+			else {
+				if (Dino.frame < 2) { Dino.frame++; }
+				else { Dino.frame = 0; }
+			}
+
+			// redraw
+			LCD.clear();
+			platformdraw();
+			dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
+			obstacledraw(Obstacle.theme, randomframe(), Obstacle.x, Obstacle.y);
+			
         } // End of check time statement
     } // End of while gameloop statement
 }

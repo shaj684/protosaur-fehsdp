@@ -1,11 +1,18 @@
+// Preprocessor directives
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <math.h>
+#include "functs.h"
 
+// Proteus Directives
+// Proteus is 320 x 240 pixels (min input is 0)
 #include <FEHIO.h>
 #include <FEHUtility.h>
 #include <FEHLCD.h>
 #include <LCDColors.h>
+#include <FEHRandom.h>
+#include <FEHBuzzer.h>
 
 // Check distance
 bool collision(int dinox, int dinoy, int obstFrame, int obstx, int obsty, int rad) {

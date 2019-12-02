@@ -57,3 +57,11 @@ Day 6 (11/30/19)
 	- Clear screen after each calculation
 	- Determined new gravity constant based on Chromedino observations
 
+Day 7 (12/1/19)
+	- Drew the game score numbers and "Game Over" for the game score in Excel
+
+
+Day 8 (12/2/19)
+	- Figured out the positioning of the "Game Over," score numbers, and replay button
+	- FEHIcon for the replay button
+	- Check to see if the player wants to replay
