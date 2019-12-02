@@ -67,6 +67,8 @@ Day 8 (12/2/19)
 	- FEHIcon for the replay button
 	- Check to see if the player wants to replay
 	- Input code into Qt Creater and fixed errors
+	- Fixed collision equation (switch case with three cactus)
 	- Determined that a max of three cactus can be on the screen
 	- Keep the cactus frame throughout
 	- Move cactus left, if negative, send cactus back to origin, check frames
+	- Determine the dino frame depending on the jump loop condition

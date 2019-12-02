@@ -128,9 +128,7 @@ void dinodraw(int theme, int frame, int x, int y) {
 	LCD.DrawHorizontalLine(30 + y, 6 + x, 21 + x);
 	LCD.DrawHorizontalLine(31 + y, 8 + x, 21 + x);
 
-	switch (frame)
-	
-	{
+	switch (frame) {
 	case 0:
 		LCD.DrawHorizontalLine(32 + y, 8 + x, 15 + x);	// Straight Legs
 		LCD.DrawHorizontalLine(32 + y, 18 + x, 21 + x);
@@ -317,7 +315,6 @@ void obstacledraw(int theme, int frame, int x, int y) {
 		break;
 	default:
 		break;
-
 	}
 }
 
@@ -336,18 +333,4 @@ int randomframe() {
 
 void gameoverdraw() {
 	LCD.SetFontColor(GHOSTWHITE);
-}
-
-void checkbutton() {
-
-}
-
-// Jump function
-void jump(int x, int y) {
-
-}
-
-// Dino collides with obstacle
-void hit() {
-
 }

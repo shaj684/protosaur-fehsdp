@@ -82,7 +82,6 @@ int main(void) {
 	dino and obstacle function inputs are bottom left corner of Excel image	
 	*/
     bool gameLoop = true;					// main flag
-    bool collision = false;					// dino collision with obstacle
     dino Dino;
     obstacle Cacti;
 	obstacle Cacdi;
@@ -200,24 +199,24 @@ int main(void) {
 				Cactri.x = Cactri.x + Cactri.velx;
 			}
 			else {
-				if (Dino.frame < 2) { Dino.frame++; }
-				else { Dino.frame = 0; }
+				// Determine the dino frame
+				if (Dino.x == DINOX) { Dino.frame = 0; }
+				else if (Dino.frame == 0 && Dino.x != DINOX) { Dino.frame = 1; }
+				else if (Dino.frame == 1) { Dino.frame = 2; }
 			}
 
 			// Send the cactus back to origin (right side) if x value 
-			if (Cacti.x < 0) { Cacti.frame = randomframe(); }
-			if (Cacdi.x < 0) { Cacdi.frame = randomframe(); }
-			if (Cactri.x < 0) { Cactri.frame = randomframe(); }
-
+			if (Cacti.x < 0) { Cacti.x = OBSTX; }
+			if (Cacdi.x < 0) { Cacdi.x = OBSTX; }
+			if (Cactri.x < 0) { Cactri.x = OBSTX; }
 
 			// Ensure the cactus keeps its frame throughout 
 			if (Cacti.x == OBSTX) { Cacti.frame = randomframe(); }
 			if (Cacdi.x == OBSTX) { Cacdi.frame = randomframe(); }
 			if (Cactri.x == OBSTX) { Cactri.frame = randomframe(); }
 
-
 			// redraw
-			LCD.clear();
+			LCD.Clear();
 			platformdraw();
 			dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
 			obstacledraw(Cacti.theme, Cacti.frame, Cacti.x, Cacti.y);
