@@ -14,6 +14,21 @@
 #include <FEHRandom.h>
 #include <FEHBuzzer.h>
 
+// INITS
+#define SLEEP 33        // Sleep timing (ms)
+#define GRAVITY 2       // Gravity acceleration constant
+
+// Positions
+#define PLANEY 200      // Platform height, (PLANEY - 1) = stuff sitting on platform
+#define DINOX 20        // Dino position, 40 x 40 pixel grid
+#define OBSTX 290		// Obstacle position, obstacle  width is 24 pixels
+#define DINORAD 30      // Dino collision radius from central point
+
+// Velocities
+#define JUMP_VELY -18    // Dino initial jump velocity
+#define OBST_VEL -3     // Obstacle velocity
+#define MAXJUMP 80		// Max dino jump height 
+
 // Check distance
 bool collision(int dinox, int dinoy, int obstFrame, int obstx, int obsty, int rad) {
 	int dinoxx = 0; int dinoyy = 0;
@@ -40,7 +55,7 @@ bool collision(int dinox, int dinoy, int obstFrame, int obstx, int obsty, int ra
 	dinoxx = dinox + 9;
 	dinoyy = dinoy - 30;
 	
-	d = abs(sqrt(pow(obstxx - obstyy, 2) + pow(dinoxx - dinoyy, 2)));
+	int d = std::abs(std::sqrt(pow(dinoxx - obstxx, 2) + pow(dinoyy - obstyy, 2)));
 	if (d < rad) {
 
 		//collision occurred
@@ -113,7 +128,9 @@ void dinodraw(int theme, int frame, int x, int y) {
 	LCD.DrawHorizontalLine(30 + y, 6 + x, 21 + x);
 	LCD.DrawHorizontalLine(31 + y, 8 + x, 21 + x);
 
-	switch frame {
+	switch (frame)
+	
+	{
 	case 0:
 		LCD.DrawHorizontalLine(32 + y, 8 + x, 15 + x);	// Straight Legs
 		LCD.DrawHorizontalLine(32 + y, 18 + x, 21 + x);

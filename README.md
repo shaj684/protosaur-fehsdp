@@ -59,9 +59,14 @@ Day 6 (11/30/19)
 
 Day 7 (12/1/19)
 	- Drew the game score numbers and "Game Over" for the game score in Excel
+	- Draw random cactus (frames 0, 1, 2)
 
 
 Day 8 (12/2/19)
 	- Figured out the positioning of the "Game Over," score numbers, and replay button
 	- FEHIcon for the replay button
 	- Check to see if the player wants to replay
+	- Input code into Qt Creater and fixed errors
+	- Determined that a max of three cactus can be on the screen
+	- Keep the cactus frame throughout
+	- Move cactus left, if negative, send cactus back to origin, check frames

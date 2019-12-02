@@ -34,11 +34,12 @@
 #define JUMP_VELY -18    // Dino initial jump velocity
 #define OBST_VEL -3     // Obstacle velocity
 #define MAXJUMP 80		// Max dino jump height 
-
+/*
 // Colors
 #define GHOSTWHITE		// Dino + Menu
 #define SPRINGGREEN		// Cactus
 #define	GOLDENROD		// Platform 
+*/
 
 /*
 Frames Dino
@@ -59,22 +60,20 @@ X and Y
 		- example: input (5, PLANEY) into collision function to calculate collision circle centerpoint
 */
 
-class dino {
-    private:
-        int theme, frame, x, y, velocity;
-        bool onGround;
-        bool jumping;
+class dino {      
     public:
-        dino(int _theme = 0, int _frame = 0, int _x = 0, int _y = 0, int _velocity = 0, bool _onGround = true, bool _jumping = false);
+		int theme, frame, x, y, velocity;
+		bool onGround;
+		bool jumping;
+		dino(int _theme = 0, int _frame = 0, int _x = 0, int _y = 0, int _velocity = 0, bool _onGround = true, bool _jumping = false);
         void jump(int x, int y);
         void hit();
 };
 
 class obstacle {
-    private:
-        int theme, frame, x, y, velx;
     public:
-        obstacle(int _theme = 0, int _frame = 0, int _x = 0, int _y  = PLANEY, int _xx = 0, int _yy = 0, int _velx = OBST_VEL);
+		int theme, frame, x, y, velx;
+        obstacle(int _theme = 0, int _frame = 0, int _x = OBSTX, int _y  = PLANEY, int _xx = 0, int _yy = 0, int _velx = OBST_VEL);
 };
 
 int main(void) {
@@ -85,7 +84,10 @@ int main(void) {
     bool gameLoop = true;					// main flag
     bool collision = false;					// dino collision with obstacle
     dino Dino;
-    obstacle Obstacle;
+    obstacle Cacti;
+	obstacle Cacdi;
+	obstacle Cactri;
+	int frontCactus = 0;
 
     ButtonBoard Button(FEHIO::Bank2);		// Board must be connected to Bank 2 on PROTEUS
     int timeInit = TimeNow();				// (ms)
@@ -115,24 +117,73 @@ int main(void) {
             // reinitialize timeInit for next pass
             timeInit = TimeNow();   // (ms)
 
-            // check obstacle collision
-			if (collision(Dino.x, Dino.y, Obstacle.frame, Obstacle.x, Obstacle.y, DINORAD)) {
-				
-				// Collided, dino with large eye
-				Dino.frame = 3;
-				Buzzer.Buzz(100);		
-				dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
-				obstacledraw(Obstacle.theme, Obstacle.frame, Obstacle.x, Obstacle.y);
-				replay.Draw();
+			// Determine the front cactus
+			if (Cacti.x == OBSTX && Cacdi.x == OBSTX && Cactri.x == OBSTX) { frontCactus = 0; }
+			else if (Cacti.x < Cacdi.x && Cacti.x < Cactri.x) { frontCactus = 0; }
+			else if (Cacdi.x < Cactri.x && Cacdi.x < Cacti.x) { frontCactus = 1; }
+			else if (Cactri.x < Cacti.x && Cactri.x < Cacdi.x) { frontCactus = 2; }
+			
+			// Check if the dino collided
+			switch (frontCactus) {
+			case 0: // check Cacti collision
+				if (collision(Dino.x, Dino.y, Cacti.frame, Cacti.x, Cacti.y, DINORAD)) {
 
-				// Check if the player wants to replay
-				while (pressReplay) {
-					if (replay.Pressed(u, v, 0)) {
-						pressReplay = true;
-						break;
-					} else { pressReplay = false; }
+					// Collided, dino with large eye
+					Dino.frame = 3;
+					Buzzer.Buzz(100);
+					dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
+					obstacledraw(Cacti.theme, Cacti.frame, Cacti.x, Cacti.y);
+					replay.Draw();
+
+					// Check if the player wants to replay
+					while (pressReplay) {
+						if (replay.Pressed(u, v, 0)) {
+							pressReplay = true;
+							break;
+						}
+						else { pressReplay = false; }
+					}
 				}
-			}
+			case 1: // check Cacdi collision
+				if (collision(Dino.x, Dino.y, Cacdi.frame, Cacdi.x, Cacdi.y, DINORAD)) {
+
+					// Collided, dino with large eye
+					Dino.frame = 3;
+					Buzzer.Buzz(100);
+					dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
+					obstacledraw(Cacdi.theme, Cacdi.frame, Cacdi.x, Cacdi.y);
+					replay.Draw();
+
+					// Check if the player wants to replay
+					while (pressReplay) {
+						if (replay.Pressed(u, v, 0)) {
+							pressReplay = true;
+							break;
+						}
+						else { pressReplay = false; }
+					}
+				}
+			case 2: // check Cactri collision
+				if (collision(Dino.x, Dino.y, Cactri.frame, Cactri.x, Cactri.y, DINORAD)) {
+
+					// Collided, dino with large eye
+					Dino.frame = 3;
+					Buzzer.Buzz(100);
+					dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
+					obstacledraw(Cactri.theme, Cactri.frame, Cactri.x, Cactri.y);
+					replay.Draw();
+
+					// Check if the player wants to replay
+					while (pressReplay) {
+						if (replay.Pressed(u, v, 0)) {
+							pressReplay = true;
+							break;
+						}
+						else { pressReplay = false; }
+					}
+				}
+
+			} // End of Switch case for front cactus
 
 			// Check if dino is below, above, or at the platform
 			if ((Dino.y + 1) < PLANEY) { Dino.jumping == true; }
@@ -143,18 +194,35 @@ int main(void) {
 			// Same dino frame while jumping
 			if (Dino.jumping) {
 				Dino.y = Dino.y + Dino.velocity;
-				Obstacle.x = Obstacle.x + Obstacle.velx;
+				
+				Cacti.x = Cacti.x + Cacti.velx;
+				Cacdi.x = Cacdi.x + Cacdi.velx;
+				Cactri.x = Cactri.x + Cactri.velx;
 			}
 			else {
 				if (Dino.frame < 2) { Dino.frame++; }
 				else { Dino.frame = 0; }
 			}
 
+			// Send the cactus back to origin (right side) if x value 
+			if (Cacti.x < 0) { Cacti.frame = randomframe(); }
+			if (Cacdi.x < 0) { Cacdi.frame = randomframe(); }
+			if (Cactri.x < 0) { Cactri.frame = randomframe(); }
+
+
+			// Ensure the cactus keeps its frame throughout 
+			if (Cacti.x == OBSTX) { Cacti.frame = randomframe(); }
+			if (Cacdi.x == OBSTX) { Cacdi.frame = randomframe(); }
+			if (Cactri.x == OBSTX) { Cactri.frame = randomframe(); }
+
+
 			// redraw
 			LCD.clear();
 			platformdraw();
 			dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
-			obstacledraw(Obstacle.theme, randomframe(), Obstacle.x, Obstacle.y);
+			obstacledraw(Cacti.theme, Cacti.frame, Cacti.x, Cacti.y);
+			obstacledraw(Cacdi.theme, Cacdi.frame, Cacdi.x, Cacdi.y);
+			obstacledraw(Cactri.theme, Cactri.frame, Cactri.x, Cactri.y);
 			
         } // End of check time statement
     } // End of while gameloop statement
@@ -171,7 +239,7 @@ dino::dino(int _theme, int _frame, int _x, int _y, int _velocity, bool _onGround
     jumping     = _jumping;
 }
 
-// Obstacle Constructor
+// Cacti Constructor
 obstacle::obstacle (int _theme, int _frame, int _x, int _y, int _velx, bool _onGround, bool _jumping) {
 	theme		= _theme;
 	frame		= _frame; 
