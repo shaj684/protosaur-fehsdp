@@ -249,9 +249,9 @@ void obstacledraw(int theme, int frame, int x, int y) {
 	// Adjust inputs to draw obstacle
 
 	switch (frame) {
-	case 0:
 		x = x - 0;
-		y = y - 39;
+		y = y + 160;
+	case 0:
 		LCD.DrawVerticalLine(0 + x, 18 + y, 22 + y);	// Single Mid-size Cactus
 		LCD.DrawVerticalLine(1 + x, 17 + y, 23 + y);
 		LCD.DrawVerticalLine(2 + x, 18 + y, 24 + y);

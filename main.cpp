@@ -79,16 +79,16 @@ int main(void) {
 	obstacle Cactri;
 	int frontCactus = 0;					// Switch case value to determine the front cactus
 
-	int score = 0
+	int score = 0;
 	int highScore = 0;
 
     ButtonBoard Button(FEHIO::Bank2);		// Board must be connected to Bank 2 on PROTEUS
     int timeInit = TimeNow();				// (ms)
 	float u, v;								// touch positions x, y
-	bool pressReplay;				// while loop condition to check replay
+	bool pressReplay;						// while loop condition to check replay
 
 	// Icon at the center of the PROTEUS
-	FEHIcon::Icon replay;				// declare icon for the replay option
+	FEHIcon::Icon replay;					// declare icon for the replay option
 	replay.SetProperties("REPLAY", 159, 102, 24, 40, GOLDENROD, GOLDENROD);			
 
     // Main Loop
@@ -96,9 +96,9 @@ int main(void) {
         
         // check if dino is on ground, if so begin jump (set vely to JUMP_CONST)
 		// true if buttonboard is pressed, return true if collide
-        if (Button.MiddlePressed() && ((Dino.y + 1) == PLANEY) && !Dino.jumping) {
+        if (Button.MiddlePressed() && !Dino.jumping) {
             Dino.velocity = JUMP_VELY;
-            Dino.jumping == true;
+            Dino.jumping = true;
         }
 
         if (TimeNow() - timeInit > SLEEP) {
@@ -126,7 +126,7 @@ int main(void) {
 
 					// Update Score
 					LCD.WriteAt(score, 250, 15);
-					LCD.WriteAt("HI: ", 235, 30);
+					LCD.WriteAt("HI: ", 225, 30);
 					LCD.WriteAt(highScore, 250, 30);
 
 					// Check if the player wants to replay
@@ -139,6 +139,14 @@ int main(void) {
 						}
 						else { pressReplay = false; }
 					}
+
+					// Send the cactus back to origin
+					Cacti.x = OBSTX; 
+					Cacdi.x = OBSTX; 
+					Cactri.x = OBSTX; 
+
+					// Reset score
+					score = 0;
 				}
 				break;
 			case 1: // check Cacdi collision
@@ -154,7 +162,7 @@ int main(void) {
 
 					// Update Score
 					LCD.WriteAt(score, 250, 15);
-					LCD.WriteAt("HI: ", 235, 30);
+					LCD.WriteAt("HI: ", 225, 30);
 					LCD.WriteAt(highScore, 250, 30);
 
 					// Check if the player wants to replay
@@ -167,6 +175,13 @@ int main(void) {
 						}
 						else { pressReplay = false; }
 					}
+					// Send the cactus back to origin
+					Cacti.x = OBSTX;
+					Cacdi.x = OBSTX;
+					Cactri.x = OBSTX;
+
+					// Reset score
+					score = 0;
 				}
 				break;
 			case 2: // check Cactri collision
@@ -183,7 +198,7 @@ int main(void) {
 
 					// Update Score
 					LCD.WriteAt(score, 250, 15);
-					LCD.WriteAt("HI: ", 235, 30);
+					LCD.WriteAt("HI: ", 225, 30);
 					LCD.WriteAt(highScore, 250, 30);
 
 					// Check if the player wants to replay
@@ -196,6 +211,13 @@ int main(void) {
 						}
 						else { pressReplay = false; }
 					}
+					// Send the cactus back to origin
+					Cacti.x = OBSTX;
+					Cacdi.x = OBSTX;
+					Cactri.x = OBSTX;
+
+					// Reset score
+					score = 0;
 				}
 				break;
 			} // End of Switch case for front cactus
@@ -217,9 +239,9 @@ int main(void) {
 			Cactri.x += Cactri.velx;
 
 			// Send the cactus back to origin (right side) if x value becomes negative
-			if (Cacti.x < 0) { Cacti.x = OBSTX; Cacti.y = PLANEY - 1; }
-			if (Cacdi.x < 0) { Cacdi.x = OBSTX; Cacti.y = PLANEY - 1; }
-			if (Cactri.x < 0) { Cactri.x = OBSTX; Cacti.y = PLANEY - 1; }
+			if (Cacti.x < 0) { Cacti.x = OBSTX; }
+			if (Cacdi.x < 0) { Cacdi.x = OBSTX; }
+			if (Cactri.x < 0) { Cactri.x = OBSTX; }
 
 			// Ensure the cactus keeps its frame throughout 
 			if (Cacti.x == OBSTX) { Cacti.frame = randomframe(); }
@@ -227,8 +249,8 @@ int main(void) {
 			if (Cactri.x == OBSTX) { Cactri.frame = randomframe(); }
 			
 			// Update Score
-			Dino.score += Dino.score;
-			if (Dino.score >= Dino.highscore) { Dino.highscore = Dino.score; }
+			score = score + 1;
+			if (score >= highScore) { highScore = score; }
 
 			// redraw
 			LCD.Clear();
