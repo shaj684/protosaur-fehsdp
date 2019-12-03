@@ -79,3 +79,5 @@ Day 9 (12/3/19)
 	- Function call "Game Over"
 	- Velocity for dino
 	- Score and high score
+	- Title and credits
+	- Documentation of images and video

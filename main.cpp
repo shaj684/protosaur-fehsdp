@@ -87,9 +87,8 @@ int main(void) {
 	float u, v;								// touch positions x, y
 	bool pressReplay;						// while loop condition to check replay
 
-	// Icon at the center of the PROTEUS
-	FEHIcon::Icon replay;					// declare icon for the replay option
-	replay.SetProperties("REPLAY", 159, 102, 24, 40, GOLDENROD, GOLDENROD);			
+	FEHIcon::Icon replay;					// declare icon for the replay option, at the center of the PROTEUS			
+	replay.SetProperties("REPLAY", 159, 102, 24, 40, GOLDENROD, GOLDENROD);
 
     // Main Loop
     while (gameLoop) {
@@ -126,8 +125,12 @@ int main(void) {
 
 					// Update Score
 					LCD.WriteAt(score, 250, 15);
-					LCD.WriteAt("HI: ", 225, 30);
+					LCD.WriteAt("HI: ", 235, 30);
 					LCD.WriteAt(highScore, 250, 30);
+
+					// Write Title and Names
+					LCD.WriteAt("THE PROTOSAUR", 165, 15);
+					LCD.WriteAt("Developed by: Shawn Jacobsen + Gary Sung", 165, 30);
 
 					// Check if the player wants to replay
 					pressReplay = false;
@@ -162,8 +165,12 @@ int main(void) {
 
 					// Update Score
 					LCD.WriteAt(score, 250, 15);
-					LCD.WriteAt("HI: ", 225, 30);
+					LCD.WriteAt("HI: ", 235, 30);
 					LCD.WriteAt(highScore, 250, 30);
+
+					// Write Title and Names
+					LCD.WriteAt("THE PROTOSAUR", 165, 15);
+					LCD.WriteAt("Developed by: Shawn Jacobsen + Gary Sung", 165, 30);
 
 					// Check if the player wants to replay
 					pressReplay = false;
@@ -198,8 +205,12 @@ int main(void) {
 
 					// Update Score
 					LCD.WriteAt(score, 250, 15);
-					LCD.WriteAt("HI: ", 225, 30);
+					LCD.WriteAt("HI: ", 235, 30);
 					LCD.WriteAt(highScore, 250, 30);
+
+					// Write Title and Names
+					LCD.WriteAt("THE PROTOSAUR", 165, 15);
+					LCD.WriteAt("Developed by: Shawn Jacobsen + Gary Sung", 165, 30);
 
 					// Check if the player wants to replay
 					pressReplay = false;
@@ -253,7 +264,7 @@ int main(void) {
 			if (score >= highScore) { highScore = score; }
 
 			// Check if dino below platform
-			if (Dino.y > PLANEY) {
+			if (Dino.y > PLANEY - 1 ) {
 				Dino.jumping = false;
 				Dino.y = PLANEY - 1;
 			}
