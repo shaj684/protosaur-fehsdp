@@ -77,3 +77,5 @@ Day 9 (12/3/19)
 	- Updated the visual studio code with error-free Qt code 
 	- Deleted the "onGround variable" since we have "jumping"
 	- Function call "Game Over"
+	- Velocity for dino
+	- Score and high score

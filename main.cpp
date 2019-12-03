@@ -121,6 +121,10 @@ int main(void) {
 					gameoverdraw();
 					replay.Draw();
 
+					// Update Score
+					LCD.WriteAt(Dino.score, 250, 15);
+					LCD.WriteAt(Dino.highscore, 250, 30);
+
 					// Check if the player wants to replay
 					pressReplay = true;
 					while (pressReplay) {
@@ -142,6 +146,10 @@ int main(void) {
 					obstacledraw(Cacdi.theme, Cacdi.frame, Cacdi.x, Cacdi.y);
 					gameoverdraw();
 					replay.Draw();
+
+					// Update Score
+					LCD.WriteAt(Dino.score, 250, 15);
+					LCD.WriteAt(Dino.highscore, 250, 30);
 
 					// Check if the player wants to replay
 					pressReplay = true;
@@ -166,6 +174,10 @@ int main(void) {
 					gameoverdraw();
 					replay.Draw();
 
+					// Update Score
+					LCD.WriteAt(Dino.score, 250, 15);
+					LCD.WriteAt(Dino.highscore, 250, 30);
+
 					// Check if the player wants to replay
 					pressReplay = true;
 					while (pressReplay) {
@@ -186,7 +198,6 @@ int main(void) {
 
 
 			// recalculate positions of objects + Redraw
-			
 			// Same dino frame while jumping
 			if (Dino.jumping) {
 				Dino.y += Dino.velocity;
@@ -212,10 +223,15 @@ int main(void) {
 			if (Cacti.x == OBSTX) { Cacti.frame = randomframe(); }
 			if (Cacdi.x == OBSTX) { Cacdi.frame = randomframe(); }
 			if (Cactri.x == OBSTX) { Cactri.frame = randomframe(); }
+			
+			// Update Score
+			Dino.score += Dino.score;
+			if (Dino.score >= Dino.highscore) { Dino.highscore = Dino.score; }
 
 			// redraw
 			LCD.Clear();
 			platformdraw();
+			LCD.WriteAt(Dino.score, 250, 15);
 			dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
 			obstacledraw(Cacti.theme, Cacti.frame, Cacti.x, Cacti.y);
 			obstacledraw(Cacdi.theme, Cacdi.frame, Cacdi.x, Cacdi.y);
