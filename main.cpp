@@ -68,7 +68,7 @@ class dino {
 class obstacle {
     public:
 		int theme, frame, x, y, velx;
-        obstacle(int _theme = 0, int _frame = 0, int _x = OBSTX, int _y  = PLANEY, int _xx = 0, int _yy = 0, int _velx = OBST_VEL);
+        obstacle(int _theme = 0, int _frame = 0, int _x = OBSTX, int _y  = PLANEY, int _velx = OBST_VEL);
 };
 
 int main(void) {
