@@ -78,7 +78,6 @@ int main(void) {
 	obstacle Cacdi;
 	obstacle Cactri;
 	int frontCactus = 0;					// Switch case value to determine the front cactus
-	int jumpTimer = 0;						// Calculate y position of Dino using Gravity and JUMP_VELY
 
     ButtonBoard Button(FEHIO::Bank2);		// Board must be connected to Bank 2 on PROTEUS
     int timeInit = TimeNow();				// (ms)
@@ -188,30 +187,9 @@ int main(void) {
 			// recalculate positions of objects + Redraw
 			// Same dino frame while jumping
 			if (Dino.jumping) {
+				Dino.y += Dino.velocity;
+				Dino.velocity += GRAVITY;
 
-				// Maximum height of Dino
-				if (Dino.velocity == 0) { 
-					jumpTimer = 0; 
-					Dino.velocity = Dino.velocity + (GRAVITY * jumpTimer);
-					if ((Dino.y + 1) == PLANEY) { Dino.velocity = 0; }
-					Dino.y = Dino.y + Dino.velocity;
-				}
-
-				// Initial Dino jump, initial Dino velocity is JUMP_VELY
-				if ((Dino.y + 1) == PLANEY) { Dino.y = Dino.y + Dino.velocity; jumpTimer = 1; }
-				
-				// Continue jump
-				else { 
-					Dino.velocity = Dino.velocity - (GRAVITY * jumpTimer);
-					if (Dino.velocity < 0) { Dino.velocity = 0; }
-					Dino.y = Dino.y + Dino.velocity; 
-				}
-
-			
-
-				Cacti.x = Cacti.x + Cacti.velx;
-				Cacdi.x = Cacdi.x + Cacdi.velx;
-				Cactri.x = Cactri.x + Cactri.velx;
 			}
 			else {
 				// Increment the dino frame
@@ -219,6 +197,10 @@ int main(void) {
 				else if (Dino.frame == 0 && Dino.x != DINOX) { Dino.frame = 1; }
 				else if (Dino.frame == 1) { Dino.frame = 2; }
 			}
+
+			Cacti.x += Cacti.velx;
+			Cacdi.x += Cacdi.velx;
+			Cactri.x += Cactri.velx;
 
 			// Send the cactus back to origin (right side) if x value becomes negative
 			if (Cacti.x < 0) { Cacti.x = OBSTX; }
