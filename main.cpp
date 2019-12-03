@@ -60,9 +60,9 @@ X and Y
 
 class dino {      
     public:
-		int theme, frame, x, y, velocity, highscore;
+		int theme, frame, x, y, velocity, score, highscore;
 		bool jumping;
-		dino(int _theme = 0, int _frame = 0, int _x = 0, int _y = 0, int _velocity = 0, int _highscore = 0, bool _jumping = false);
+		dino(int _theme = 0, int _frame = 0, int _x = 0, int _y = 0, int _velocity = JUMP_VELY, int _score = 0,  int _highscore = 0, bool _jumping = false);
 };
 
 class obstacle {
@@ -77,12 +77,12 @@ int main(void) {
     obstacle Cacti;
 	obstacle Cacdi;
 	obstacle Cactri;
-	int frontCactus = 0;					// Swich case value to determine the front cactus
+	int frontCactus = 0;					// Switch case value to determine the front cactus
+	int jumpTimer = 0;						// Calculate y position of Dino using Gravity and JUMP_VELY
 
     ButtonBoard Button(FEHIO::Bank2);		// Board must be connected to Bank 2 on PROTEUS
     int timeInit = TimeNow();				// (ms)
 	float u, v;								// touch positions x, y
-	LCD.Touch(&u, &v);
 	bool pressReplay;				// while loop condition to check replay
 
 	// Icon at the center of the PROTEUS
@@ -125,6 +125,7 @@ int main(void) {
 					// Check if the player wants to replay
 					pressReplay = true;
 					while (pressReplay) {
+						LCD.Touch(&u, &v);
 						if (replay.Pressed(u, v, 0)) {
 							pressReplay = true;
 							break;
@@ -146,6 +147,7 @@ int main(void) {
 					// Check if the player wants to replay
 					pressReplay = true;
 					while (pressReplay) {
+						LCD.Touch(&u, &v);
 						if (replay.Pressed(u, v, 0)) {
 							pressReplay = true;
 							break;
@@ -168,6 +170,7 @@ int main(void) {
 					// Check if the player wants to replay
 					pressReplay = true;
 					while (pressReplay) {
+						LCD.Touch(&u, &v);
 						if (replay.Pressed(u, v, 0)) {
 							pressReplay = true;
 							break;
@@ -185,8 +188,27 @@ int main(void) {
 			// recalculate positions of objects + Redraw
 			// Same dino frame while jumping
 			if (Dino.jumping) {
-				Dino.y = Dino.y + Dino.velocity;
+
+				// Maximum height of Dino
+				if (Dino.velocity == 0) { 
+					jumpTimer = 0; 
+					Dino.velocity = Dino.velocity + (GRAVITY * jumpTimer);
+					if ((Dino.y + 1) == PLANEY) { Dino.velocity = 0; }
+					Dino.y = Dino.y + Dino.velocity;
+				}
+
+				// Initial Dino jump, initial Dino velocity is JUMP_VELY
+				if ((Dino.y + 1) == PLANEY) { Dino.y = Dino.y + Dino.velocity; jumpTimer = 1; }
 				
+				// Continue jump
+				else { 
+					Dino.velocity = Dino.velocity - (GRAVITY * jumpTimer);
+					if (Dino.velocity < 0) { Dino.velocity = 0; }
+					Dino.y = Dino.y + Dino.velocity; 
+				}
+
+			
+
 				Cacti.x = Cacti.x + Cacti.velx;
 				Cacdi.x = Cacdi.x + Cacdi.velx;
 				Cactri.x = Cactri.x + Cactri.velx;
@@ -218,15 +240,29 @@ int main(void) {
 			
         } // End of check time statement
     } // End of while gameloop statement
+
+	/* Test Draw
+	
+	
+	LCD.Clear();
+	platformdraw();
+	dinodraw(0, 0, DINOX, PLANEY - 1);
+	obstacledraw(Cacti.theme, Cacti.frame, Cacti.x, Cacti.y);
+	obstacledraw(Cacdi.theme, Cacdi.frame, Cacdi.x, Cacdi.y);
+	obstacledraw(Cactri.theme, Cactri.frame, Cactri.x, Cactri.y);
+
+	
+	*/
 } //End of main loop
 
 // Dino Constructor
-dino::dino(int _theme, int _frame, int _x, int _y, int _velocity, int _highscore, bool _jumping) {
+dino::dino(int _theme, int _frame, int _x, int _y, int _velocity, int _score, int _highscore, bool _jumping) {
 	theme		= _theme;
 	frame       = _frame;
     x           = _x;
     y           = _y;
     velocity    = _velocity;
+	score		= _score;
 	highscore	= _highscore;
     jumping     = _jumping;
 }
