@@ -285,7 +285,7 @@ void obstacledraw(int theme, int frame, int x, int y) {
 		LCD.DrawVerticalLine(10 + x, 19 + y, 21 + y);	
 		LCD.DrawVerticalLine(11 + x, 19 + y, 21 + y);
 
-		LCD.DrawVerticalLine(12 + x, 11 + y, 21 + y);		// Start Cactus 2
+		LCD.DrawVerticalLine(12 + x, 11 + y, 21 + y);	// Start Cactus 2
 		LCD.DrawVerticalLine(12 + x, 26 + y, 29 + y);
 		LCD.DrawVerticalLine(13 + x, 10 + y, 20 + y);
 		LCD.DrawVerticalLine(13 + x, 25 + y, 30 + y);
@@ -346,4 +346,138 @@ int randomframe() {
 
 void gameoverdraw() {
 	LCD.SetFontColor(GHOSTWHITE);
+
+	// No inputs, direct draw on PROTEUS
+	// DrawVerticalLine(x, y, y)
+	// DrawHorizontalLine(y, x, x)
+
+	LCD.DrawVerticalLine(57, 55, 59);		// Letter G
+	LCD.DrawVerticalLine(58, 55, 59);
+	LCD.DrawVerticalLine(59, 53, 62);
+	LCD.DrawVerticalLine(60, 53, 62);
+	LCD.DrawVerticalLine(61, 50, 53);
+	LCD.DrawVerticalLine(61, 61, 64);
+	LCD.DrawVerticalLine(62, 50, 53);
+	LCD.DrawVerticalLine(62, 61, 64);
+
+	LCD.DrawHorizontalLine(50, 63, 70);
+	LCD.DrawHorizontalLine(51, 63, 70);
+	LCD.DrawHorizontalLine(56, 65, 70);
+	LCD.DrawHorizontalLine(57, 65, 70);
+	LCD.DrawHorizontalLine(58, 68, 70);
+	LCD.DrawHorizontalLine(59, 68, 70);
+	LCD.DrawHorizontalLine(60, 68, 70);
+	LCD.DrawHorizontalLine(61, 68, 70);
+	LCD.DrawHorizontalLine(62, 68, 70);
+	LCD.DrawHorizontalLine(63, 63, 70);
+	LCD.DrawHorizontalLine(64, 63, 70);
+	
+	LCD.DrawVerticalLine(81, 55, 64);		// Letter A
+	LCD.DrawVerticalLine(82, 55, 64);
+	LCD.DrawVerticalLine(83, 53, 64);
+	LCD.DrawVerticalLine(84, 53, 64);
+	LCD.DrawVerticalLine(85, 52, 54);
+	LCD.DrawVerticalLine(86, 52, 54);
+	LCD.DrawVerticalLine(89, 52, 54);
+	LCD.DrawVerticalLine(90, 52, 54);
+	LCD.DrawVerticalLine(91, 53, 64);
+	LCD.DrawVerticalLine(92, 53, 64);
+	LCD.DrawVerticalLine(93, 55, 64);
+	LCD.DrawVerticalLine(94, 55, 64);
+
+	LCD.DrawHorizontalLine(50, 85, 90);
+	LCD.DrawHorizontalLine(51, 85, 90);
+	LCD.DrawHorizontalLine(59, 85, 90);
+	LCD.DrawHorizontalLine(60, 85, 90);
+
+	LCD.DrawVerticalLine(105, 50, 64);		// Letter M
+	LCD.DrawVerticalLine(106, 50, 64);
+	LCD.DrawVerticalLine(107, 50, 64);
+	LCD.DrawVerticalLine(108, 50, 64);
+	LCD.DrawVerticalLine(109, 52, 57);
+	LCD.DrawVerticalLine(110, 52, 57);
+	LCD.DrawVerticalLine(111, 56, 59);
+	LCD.DrawVerticalLine(112, 56, 59);
+	LCD.DrawVerticalLine(113, 52, 57);
+	LCD.DrawVerticalLine(114, 52, 57);
+	LCD.DrawVerticalLine(115, 50, 64);
+	LCD.DrawVerticalLine(116, 50, 64);
+	LCD.DrawVerticalLine(117, 50, 64);
+	LCD.DrawVerticalLine(118, 50, 64);
+
+	LCD.DrawVerticalLine(129, 50, 64);		// Letter E
+	LCD.DrawVerticalLine(130, 50, 64);
+	LCD.DrawVerticalLine(131, 50, 64);
+	LCD.DrawVerticalLine(132, 50, 64);
+
+	LCD.DrawHorizontalLine(50, 133, 142);
+	LCD.DrawHorizontalLine(51, 133, 142);
+	LCD.DrawHorizontalLine(56, 133, 140);
+	LCD.DrawHorizontalLine(57, 133, 140);
+	LCD.DrawHorizontalLine(63, 133, 142);
+	LCD.DrawHorizontalLine(64, 133, 142);
+
+	LCD.DrawVerticalLine(177, 52, 62);		// Letter O
+	LCD.DrawVerticalLine(178, 52, 62);
+	LCD.DrawVerticalLine(179, 50, 64);
+	LCD.DrawVerticalLine(180, 50, 64);
+
+	LCD.DrawHorizontalLine(50, 181, 186);
+	LCD.DrawHorizontalLine(51, 181, 186);
+	LCD.DrawHorizontalLine(63, 181, 186);
+	LCD.DrawHorizontalLine(64, 181, 186);
+
+	LCD.DrawVerticalLine(187, 50, 64);
+	LCD.DrawVerticalLine(188, 50, 64);
+	LCD.DrawVerticalLine(189, 52, 62);
+	LCD.DrawVerticalLine(190, 52, 62);
+
+	LCD.DrawVerticalLine(201, 50, 58);		// Letter V
+	LCD.DrawVerticalLine(202, 50, 58);
+	LCD.DrawVerticalLine(203, 50, 60);
+	LCD.DrawVerticalLine(204, 50, 60);
+	LCD.DrawVerticalLine(205, 57, 62);
+	LCD.DrawVerticalLine(206, 57, 62);
+	LCD.DrawVerticalLine(207, 59, 64);
+	LCD.DrawVerticalLine(208, 59, 64);
+	LCD.DrawVerticalLine(209, 57, 62);
+	LCD.DrawVerticalLine(210, 57, 62);
+	LCD.DrawVerticalLine(211, 50, 60);
+	LCD.DrawVerticalLine(212, 50, 60);
+	LCD.DrawVerticalLine(213, 50, 58);
+	LCD.DrawVerticalLine(214, 50, 58);
+
+	LCD.DrawVerticalLine(225, 50, 64);		// Letter E
+	LCD.DrawVerticalLine(226, 50, 64);
+	LCD.DrawVerticalLine(227, 50, 64);
+	LCD.DrawVerticalLine(228, 50, 64);
+
+	LCD.DrawHorizontalLine(50, 229, 238);
+	LCD.DrawHorizontalLine(51, 229, 238);
+	LCD.DrawHorizontalLine(56, 229, 236);
+	LCD.DrawHorizontalLine(57, 229, 236);
+	LCD.DrawHorizontalLine(63, 229, 238);
+	LCD.DrawHorizontalLine(64, 229, 238);
+
+	LCD.DrawVerticalLine(249, 50, 64);		// Letter R
+	LCD.DrawVerticalLine(250, 50, 64);
+	LCD.DrawVerticalLine(251, 50, 64);
+	LCD.DrawVerticalLine(252, 50, 64);
+
+	LCD.DrawHorizontalLine(50, 253, 260);
+	LCD.DrawHorizontalLine(51, 253, 260);
+	LCD.DrawHorizontalLine(52, 259, 262);
+	LCD.DrawHorizontalLine(53, 259, 262);
+	LCD.DrawHorizontalLine(54, 259, 262);
+	LCD.DrawHorizontalLine(55, 259, 262);
+	LCD.DrawHorizontalLine(56, 259, 262);
+	LCD.DrawHorizontalLine(57, 257, 262);
+	LCD.DrawHorizontalLine(58, 257, 262);
+
+	LCD.DrawHorizontalLine(59, 253, 258);
+	LCD.DrawHorizontalLine(60, 253, 258);
+	LCD.DrawHorizontalLine(61, 255, 260);
+	LCD.DrawHorizontalLine(62, 255, 260);
+	LCD.DrawHorizontalLine(63, 257, 262);
+	LCD.DrawHorizontalLine(64, 257, 262);
 }

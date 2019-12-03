@@ -19,7 +19,6 @@
 #include <FEHRandom.h>
 #include <FEHBuzzer.h>
 
-
 // INITS
 #define SLEEP 33        // Sleep timing (ms)
 #define GRAVITY 2       // Gravity acceleration constant
@@ -31,15 +30,14 @@
 #define DINORAD 30      // Dino collision radius from central point
 
 // Velocities
-#define JUMP_VELY -18    // Dino initial jump velocity
+#define JUMP_VELY -18   // Dino initial jump velocity
 #define OBST_VEL -3     // Obstacle velocity
 #define MAXJUMP 80		// Max dino jump height 
-/*
-// Colors
-#define GHOSTWHITE		// Dino + Menu
-#define SPRINGGREEN		// Cactus
-#define	GOLDENROD		// Platform 
-*/
+
+// Dino + Menu			GHOSTWHITE		
+// Cactus				SPRINGGREEN		
+// Platform				GOLDENROD		
+
 
 /*
 Frames Dino
@@ -62,9 +60,9 @@ X and Y
 
 class dino {      
     public:
-		int theme, frame, x, y, velocity;
+		int theme, frame, x, y, velocity, highscore;
 		bool jumping;
-		dino(int _theme = 0, int _frame = 0, int _x = 0, int _y = 0, int _velocity = 0, bool _jumping = false);
+		dino(int _theme = 0, int _frame = 0, int _x = 0, int _y = 0, int _velocity = 0, int _highscore = 0, bool _jumping = false);
 };
 
 class obstacle {
@@ -74,25 +72,21 @@ class obstacle {
 };
 
 int main(void) {
-	/*
-	PASS IN values in terms of DINOX, OBSTX, and PLANEY into the draw functions
-	dino and obstacle function inputs are bottom left corner of Excel image	
-	*/
     bool gameLoop = true;					// main flag
     dino Dino;
     obstacle Cacti;
 	obstacle Cacdi;
 	obstacle Cactri;
-	int frontCactus = 0;
+	int frontCactus = 0;					// Swich case value to determine the front cactus
 
     ButtonBoard Button(FEHIO::Bank2);		// Board must be connected to Bank 2 on PROTEUS
     int timeInit = TimeNow();				// (ms)
 	float u, v;								// touch positions x, y
 	LCD.Touch(&u, &v);
-	bool pressReplay = true;				// while loop condition to check replay
+	bool pressReplay;				// while loop condition to check replay
 
 	// Icon at the center of the PROTEUS
-	FEHIcon::Icon replay[1];				// declare icon for the replay option
+	FEHIcon::Icon replay;				// declare icon for the replay option
 	replay.SetProperties("REPLAY", 159, 102, 24, 40, GOLDENROD, GOLDENROD);			
 
     // Main Loop
@@ -125,9 +119,11 @@ int main(void) {
 					Buzzer.Buzz(100);
 					dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
 					obstacledraw(Cacti.theme, Cacti.frame, Cacti.x, Cacti.y);
+					gameoverdraw();
 					replay.Draw();
 
 					// Check if the player wants to replay
+					pressReplay = true;
 					while (pressReplay) {
 						if (replay.Pressed(u, v, 0)) {
 							pressReplay = true;
@@ -144,9 +140,11 @@ int main(void) {
 					Buzzer.Buzz(100);
 					dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
 					obstacledraw(Cacdi.theme, Cacdi.frame, Cacdi.x, Cacdi.y);
+					gameoverdraw();
 					replay.Draw();
 
 					// Check if the player wants to replay
+					pressReplay = true;
 					while (pressReplay) {
 						if (replay.Pressed(u, v, 0)) {
 							pressReplay = true;
@@ -163,9 +161,12 @@ int main(void) {
 					Buzzer.Buzz(100);
 					dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
 					obstacledraw(Cactri.theme, Cactri.frame, Cactri.x, Cactri.y);
+					LCD.SetFontColor(GHOSTWHITE);
+					gameoverdraw();
 					replay.Draw();
 
 					// Check if the player wants to replay
+					pressReplay = true;
 					while (pressReplay) {
 						if (replay.Pressed(u, v, 0)) {
 							pressReplay = true;
@@ -174,7 +175,6 @@ int main(void) {
 						else { pressReplay = false; }
 					}
 				}
-
 			} // End of Switch case for front cactus
 
 			// Check if dino is below, above, or at the platform
@@ -192,13 +192,13 @@ int main(void) {
 				Cactri.x = Cactri.x + Cactri.velx;
 			}
 			else {
-				// Determine the dino frame
+				// Increment the dino frame
 				if (Dino.x == DINOX) { Dino.frame = 0; }
 				else if (Dino.frame == 0 && Dino.x != DINOX) { Dino.frame = 1; }
 				else if (Dino.frame == 1) { Dino.frame = 2; }
 			}
 
-			// Send the cactus back to origin (right side) if x value 
+			// Send the cactus back to origin (right side) if x value becomes negative
 			if (Cacti.x < 0) { Cacti.x = OBSTX; }
 			if (Cacdi.x < 0) { Cacdi.x = OBSTX; }
 			if (Cactri.x < 0) { Cactri.x = OBSTX; }
@@ -218,19 +218,20 @@ int main(void) {
 			
         } // End of check time statement
     } // End of while gameloop statement
-}
+} //End of main loop
 
 // Dino Constructor
-dino::dino(int _theme, int _frame, int _x, int _y, int _velocity, bool _jumping) {
+dino::dino(int _theme, int _frame, int _x, int _y, int _velocity, int _highscore, bool _jumping) {
 	theme		= _theme;
 	frame       = _frame;
     x           = _x;
     y           = _y;
     velocity    = _velocity;
+	highscore	= _highscore;
     jumping     = _jumping;
 }
 
-// Cacti Constructor
+// Cactus Constructor
 obstacle::obstacle (int _theme, int _frame, int _x, int _y, int _velx, bool _jumping) {
 	theme		= _theme;
 	frame		= _frame; 

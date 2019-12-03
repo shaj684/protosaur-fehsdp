@@ -76,3 +76,4 @@ Day 8 (12/2/19)
 Day 9 (12/3/19)
 	- Updated the visual studio code with error-free Qt code 
 	- Deleted the "onGround variable" since we have "jumping"
+	- Function call "Game Over"
