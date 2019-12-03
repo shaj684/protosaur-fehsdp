@@ -136,6 +136,7 @@ int main(void) {
 						else { pressReplay = false; }
 					}
 				}
+				break;
 			case 1: // check Cacdi collision
 				if (collision(Dino.x, Dino.y, Cacdi.frame, Cacdi.x, Cacdi.y, DINORAD)) {
 
@@ -162,6 +163,7 @@ int main(void) {
 						else { pressReplay = false; }
 					}
 				}
+				break;
 			case 2: // check Cactri collision
 				if (collision(Dino.x, Dino.y, Cactri.frame, Cactri.x, Cactri.y, DINORAD)) {
 
@@ -189,6 +191,7 @@ int main(void) {
 						else { pressReplay = false; }
 					}
 				}
+				break;
 			} // End of Switch case for front cactus
 
 			// Check if dino is below, above, or at the platform
@@ -196,8 +199,6 @@ int main(void) {
 			else if ((Dino.y + 1) == PLANEY) { Dino.jumping == false; }
 			else { Dino.y == PLANEY - 1; }
 
-
-			// recalculate positions of objects + Redraw
 			// Same dino frame while jumping
 			if (Dino.jumping) {
 				Dino.y += Dino.velocity;
@@ -209,7 +210,7 @@ int main(void) {
 				Dino.frame = 0;
 			}
 
-
+			// recalculate positions of cactus
 			Cacti.x += Cacti.velx;
 			Cacdi.x += Cacdi.velx;
 			Cactri.x += Cactri.velx;
@@ -233,9 +234,10 @@ int main(void) {
 			platformdraw();
 			LCD.WriteAt(Dino.score, 250, 15);
 			dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
-			obstacledraw(Cacti.theme, Cacti.frame, Cacti.x, Cacti.y);
-			obstacledraw(Cacdi.theme, Cacdi.frame, Cacdi.x, Cacdi.y);
-			obstacledraw(Cactri.theme, Cactri.frame, Cactri.x, Cactri.y);
+			
+			if (frontCactus == 0) { obstacledraw(Cacti.theme, Cacti.frame, Cacti.x, Cacti.y); }
+			else if (frontCactus == 1) { obstacledraw(Cacdi.theme, Cacdi.frame, Cacdi.x, Cacdi.y); }
+			else if (frontCactus == 2) { obstacledraw(Cactri.theme, Cactri.frame, Cactri.x, Cactri.y); }
 			
         } // End of check time statement
     } // End of while gameloop statement
