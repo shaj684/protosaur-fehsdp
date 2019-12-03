@@ -62,7 +62,7 @@ class dino {
     public:
 		int theme, frame, x, y, velocity, score, highscore;
 		bool jumping;
-		dino(int _theme = 0, int _frame = 0, int _x = 0, int _y = 0, int _velocity = JUMP_VELY, int _score = 0,  int _highscore = 0, bool _jumping = false);
+		dino(int _theme = 0, int _frame = 0, int _x = DINOX, int _y = PLANEY - 1, int _velocity = JUMP_VELY, int _score = 0,  int _highscore = 0, bool _jumping = false);
 };
 
 class obstacle {
@@ -184,19 +184,20 @@ int main(void) {
 			else if ((Dino.y + 1) == PLANEY) { Dino.jumping == false; }
 			else { Dino.y == PLANEY - 1; }
 
+
 			// recalculate positions of objects + Redraw
+			
 			// Same dino frame while jumping
 			if (Dino.jumping) {
 				Dino.y += Dino.velocity;
 				Dino.velocity += GRAVITY;
+			}
+			else if (Dino.frame <= 2){
+				Dino.frame ++;
+			} else {
+				Dino.frame = 0;
+			}
 
-			}
-			else {
-				// Increment the dino frame
-				if (Dino.x == DINOX) { Dino.frame = 0; }
-				else if (Dino.frame == 0 && Dino.x != DINOX) { Dino.frame = 1; }
-				else if (Dino.frame == 1) { Dino.frame = 2; }
-			}
 
 			Cacti.x += Cacti.velx;
 			Cacdi.x += Cacdi.velx;
