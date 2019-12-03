@@ -1,9 +1,14 @@
+#ifndef FUNCTS_H
+#define FUNCTS_H
+
+#endif // FUNCTS_H
+
 // Preprocessor directives
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
-#include "functs.h"
+#include <cmath>
 
 // Proteus Directives
 // Proteus is 320 x 240 pixels (min input is 0)
@@ -29,6 +34,8 @@
 #define OBST_VEL -3     // Obstacle velocity
 #define MAXJUMP 80		// Max dino jump height 
 
+using namespace std;
+
 // Check distance
 bool collision(int dinox, int dinoy, int obstFrame, int obstx, int obsty, int rad) {
 	int dinoxx = 0; int dinoyy = 0;
@@ -51,16 +58,22 @@ bool collision(int dinox, int dinoy, int obstFrame, int obstx, int obsty, int ra
 	default:
 		break;
 	}
+
 	// Calculate dino collision circle centerpoint
 	dinoxx = dinox + 9;
 	dinoyy = dinoy - 30;
-	
-	int d = std::abs(std::sqrt(pow(dinoxx - obstxx, 2) + pow(dinoyy - obstyy, 2)));
+
+	// change in positions
+	int changeX = dinoxx - obstxx;
+	int changeY = dinoyy - obstyy;
+
+	int d = abs(sqrt(pow(changeX, 2) + pow(changeY, 2)));
 	if (d < rad) {
 
 		//collision occurred
-		return true;
-	} else { return false; }
+		return 1;
+	}
+	else { return 0; }
 }
 
 void platformdraw() {

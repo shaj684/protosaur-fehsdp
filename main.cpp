@@ -63,11 +63,8 @@ X and Y
 class dino {      
     public:
 		int theme, frame, x, y, velocity;
-		bool onGround;
 		bool jumping;
-		dino(int _theme = 0, int _frame = 0, int _x = 0, int _y = 0, int _velocity = 0, bool _onGround = true, bool _jumping = false);
-        void jump(int x, int y);
-        void hit();
+		dino(int _theme = 0, int _frame = 0, int _x = 0, int _y = 0, int _velocity = 0, bool _jumping = false);
 };
 
 class obstacle {
@@ -101,10 +98,6 @@ int main(void) {
     // Main Loop
     while (gameLoop) {
         
-        // (Possible Solution)
-        // while(TimeNow() - timeInit < SLEEP && !Button.MiddlePressed());
-        // (Possible Solution)
-
         // check if dino is on ground, if so begin jump (set vely to JUMP_CONST)
 		// true if buttonboard is pressed, return true if collide
         if (Button.MiddlePressed() && ((Dino.y + 1) == PLANEY) && !Dino.jumping) {
@@ -228,18 +221,17 @@ int main(void) {
 }
 
 // Dino Constructor
-dino::dino(int _theme, int _frame, int _x, int _y, int _velocity, bool _onGround, bool _jumping) {
+dino::dino(int _theme, int _frame, int _x, int _y, int _velocity, bool _jumping) {
 	theme		= _theme;
 	frame       = _frame;
     x           = _x;
     y           = _y;
     velocity    = _velocity;
-    onGround    = _onGround;
     jumping     = _jumping;
 }
 
 // Cacti Constructor
-obstacle::obstacle (int _theme, int _frame, int _x, int _y, int _velx, bool _onGround, bool _jumping) {
+obstacle::obstacle (int _theme, int _frame, int _x, int _y, int _velx, bool _jumping) {
 	theme		= _theme;
 	frame		= _frame; 
 	x			= _x;

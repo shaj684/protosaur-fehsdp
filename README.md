@@ -72,3 +72,7 @@ Day 8 (12/2/19)
 	- Keep the cactus frame throughout
 	- Move cactus left, if negative, send cactus back to origin, check frames
 	- Determine the dino frame depending on the jump loop condition
+
+Day 9 (12/3/19)
+	- Updated the visual studio code with error-free Qt code 
+	- Deleted the "onGround variable" since we have "jumping"
