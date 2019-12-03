@@ -20,7 +20,7 @@
 #include <FEHBuzzer.h>
 
 // INITS
-#define SLEEP 33        // Sleep timing (ms)
+#define SLEEP .033        // Sleep timing (ms)
 #define GRAVITY 2       // Gravity acceleration constant
 
 // Positions
