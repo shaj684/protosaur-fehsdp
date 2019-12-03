@@ -60,9 +60,9 @@ X and Y
 
 class dino {      
     public:
-		int theme, frame, x, y, velocity, score, highscore;
+		int theme, frame, x, y, velocity;
 		bool jumping;
-		dino(int _theme = 0, int _frame = 0, int _x = DINOX, int _y = PLANEY - 1, int _velocity = JUMP_VELY, int _score = 0,  int _highscore = 0, bool _jumping = false);
+		dino(int _theme = 0, int _frame = 0, int _x = DINOX, int _y = PLANEY - 1, int _velocity = JUMP_VELY, bool _jumping = false);
 };
 
 class obstacle {
@@ -78,6 +78,9 @@ int main(void) {
 	obstacle Cacdi;
 	obstacle Cactri;
 	int frontCactus = 0;					// Switch case value to determine the front cactus
+
+	int score = 0
+	int highScore = 0;
 
     ButtonBoard Button(FEHIO::Bank2);		// Board must be connected to Bank 2 on PROTEUS
     int timeInit = TimeNow();				// (ms)
@@ -122,12 +125,13 @@ int main(void) {
 					replay.Draw();
 
 					// Update Score
-					LCD.WriteAt(Dino.score, 250, 15);
-					LCD.WriteAt(Dino.highscore, 250, 30);
+					LCD.WriteAt(score, 250, 15);
+					LCD.WriteAt("HI: ", 235, 30);
+					LCD.WriteAt(highScore, 250, 30);
 
 					// Check if the player wants to replay
-					pressReplay = true;
-					while (pressReplay) {
+					pressReplay = false;
+					while (!pressReplay) {
 						LCD.Touch(&u, &v);
 						if (replay.Pressed(u, v, 0)) {
 							pressReplay = true;
@@ -149,12 +153,13 @@ int main(void) {
 					replay.Draw();
 
 					// Update Score
-					LCD.WriteAt(Dino.score, 250, 15);
-					LCD.WriteAt(Dino.highscore, 250, 30);
+					LCD.WriteAt(score, 250, 15);
+					LCD.WriteAt("HI: ", 235, 30);
+					LCD.WriteAt(highScore, 250, 30);
 
 					// Check if the player wants to replay
-					pressReplay = true;
-					while (pressReplay) {
+					pressReplay = false;
+					while (!pressReplay) {
 						LCD.Touch(&u, &v);
 						if (replay.Pressed(u, v, 0)) {
 							pressReplay = true;
@@ -177,12 +182,13 @@ int main(void) {
 					replay.Draw();
 
 					// Update Score
-					LCD.WriteAt(Dino.score, 250, 15);
-					LCD.WriteAt(Dino.highscore, 250, 30);
+					LCD.WriteAt(score, 250, 15);
+					LCD.WriteAt("HI: ", 235, 30);
+					LCD.WriteAt(highScore, 250, 30);
 
 					// Check if the player wants to replay
-					pressReplay = true;
-					while (pressReplay) {
+					pressReplay = false;
+					while (!pressReplay) {
 						LCD.Touch(&u, &v);
 						if (replay.Pressed(u, v, 0)) {
 							pressReplay = true;
@@ -252,14 +258,12 @@ int main(void) {
 } //End of main loop
 
 // Dino Constructor
-dino::dino(int _theme, int _frame, int _x, int _y, int _velocity, int _score, int _highscore, bool _jumping) {
+dino::dino(int _theme, int _frame, int _x, int _y, int _velocity, bool _jumping) {
 	theme		= _theme;
 	frame       = _frame;
     x           = _x;
     y           = _y;
     velocity    = _velocity;
-	score		= _score;
-	highscore	= _highscore;
     jumping     = _jumping;
 }
 
