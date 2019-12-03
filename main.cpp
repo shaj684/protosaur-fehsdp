@@ -252,6 +252,12 @@ int main(void) {
 			score = score + 1;
 			if (score >= highScore) { highScore = score; }
 
+			// Check if dino below platform
+			if (Dino.y > PLANEY) {
+				Dino.jumping = false;
+				Dino.y = PLANEY - 1;
+			}
+
 			// redraw
 			LCD.Clear();
 			platformdraw();
@@ -264,19 +270,6 @@ int main(void) {
 			
         } // End of check time statement
     } // End of while gameloop statement
-
-	/* Test Draw
-	
-	
-	LCD.Clear();
-	platformdraw();
-	dinodraw(0, 0, DINOX, PLANEY - 1);
-	obstacledraw(Cacti.theme, Cacti.frame, Cacti.x, Cacti.y);
-	obstacledraw(Cacdi.theme, Cacdi.frame, Cacdi.x, Cacdi.y);
-	obstacledraw(Cactri.theme, Cactri.frame, Cactri.x, Cactri.y);
-
-	
-	*/
 } //End of main loop
 
 // Dino Constructor

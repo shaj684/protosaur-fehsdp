@@ -247,10 +247,11 @@ void obstacledraw(int theme, int frame, int x, int y) {
 	// Cactus: Theme = 0
 	// Input (x, y) is lower left corner of Excel sketch
 	// Adjust inputs to draw obstacle
-
+	
+	y = y - 36;
+	
 	switch (frame) {
-		x = x - 0;
-		y = y + 160;
+		
 	case 0:
 		LCD.DrawVerticalLine(0 + x, 18 + y, 22 + y);	// Single Mid-size Cactus
 		LCD.DrawVerticalLine(1 + x, 17 + y, 23 + y);
