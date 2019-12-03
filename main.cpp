@@ -194,11 +194,6 @@ int main(void) {
 				break;
 			} // End of Switch case for front cactus
 
-			// Check if dino is below, above, or at the platform
-			if ((Dino.y + 1) < PLANEY) { Dino.jumping == true; }
-			else if ((Dino.y + 1) == PLANEY) { Dino.jumping == false; }
-			else { Dino.y == PLANEY - 1; }
-
 			// Same dino frame while jumping
 			if (Dino.jumping) {
 				Dino.y += Dino.velocity;
@@ -216,9 +211,9 @@ int main(void) {
 			Cactri.x += Cactri.velx;
 
 			// Send the cactus back to origin (right side) if x value becomes negative
-			if (Cacti.x < 0) { Cacti.x = OBSTX; }
-			if (Cacdi.x < 0) { Cacdi.x = OBSTX; }
-			if (Cactri.x < 0) { Cactri.x = OBSTX; }
+			if (Cacti.x < 0) { Cacti.x = OBSTX; Cacti.y = PLANEY - 1; }
+			if (Cacdi.x < 0) { Cacdi.x = OBSTX; Cacti.y = PLANEY - 1; }
+			if (Cactri.x < 0) { Cactri.x = OBSTX; Cacti.y = PLANEY - 1; }
 
 			// Ensure the cactus keeps its frame throughout 
 			if (Cacti.x == OBSTX) { Cacti.frame = randomframe(); }
@@ -269,7 +264,7 @@ dino::dino(int _theme, int _frame, int _x, int _y, int _velocity, int _score, in
 }
 
 // Cactus Constructor
-obstacle::obstacle (int _theme, int _frame, int _x, int _y, int _velx, bool _jumping) {
+obstacle::obstacle (int _theme, int _frame, int _x, int _y, int _velx) {
 	theme		= _theme;
 	frame		= _frame; 
 	x			= _x;
