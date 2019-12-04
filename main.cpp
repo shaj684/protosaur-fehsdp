@@ -21,7 +21,7 @@
 
 // INITS
 #define SLEEP .033        // Sleep timing (ms)
-#define GRAVITY 2       // Gravity acceleration constant
+#define GRAVITY 4       // Gravity acceleration constant
 
 // Positions
 #define PLANEY 200      // Platform height, (PLANEY - 1) = stuff sitting on platform
@@ -37,7 +37,6 @@
 // Dino + Menu			GHOSTWHITE		
 // Cactus				SPRINGGREEN		
 // Platform				GOLDENROD		
-
 
 /*
 Frames Dino
@@ -88,10 +87,13 @@ int main(void) {
 	bool pressReplay;						// while loop condition to check replay
 
 	FEHIcon::Icon replay;					// declare icon for the replay option, at the center of the PROTEUS			
-	replay.SetProperties("REPLAY", 159, 102, 24, 40, GOLDENROD, GOLDENROD);
+	replay.SetProperties("REPLAY", 159, 102, 84, 40, GOLDENROD, GOLDENROD);
+
+	// random for loop
+	for (int i = 0; i < 1; i++) { int j; }
 
     // Main Loop
-    while (gameLoop) {
+    do {
         
         // check if dino is on ground, if so begin jump (set vely to JUMP_CONST)
 		// true if buttonboard is pressed, return true if collide
@@ -129,8 +131,9 @@ int main(void) {
 					LCD.WriteAt(highScore, 250, 30);
 
 					// Write Title and Names
-					LCD.WriteAt("THE PROTOSAUR", 165, 15);
-					LCD.WriteAt("Developed by: Shawn Jacobsen + Gary Sung", 165, 30);
+					LCD.WriteAt("THE PROTOSAUR", 57, 15);
+					LCD.WriteAt("Developed by: Shawn Jacobsen + Gary Sung", 57, 30);
+					LCD.WriteAt("Inspired by ChromeDino", DINOX, 220);
 
 					// Check if the player wants to replay
 					pressReplay = false;
@@ -244,7 +247,16 @@ int main(void) {
 				Dino.frame = 0;
 			}
 
+			switch (frontCactus) {
+			case 0:
+				break;
+			case 1:
+				break;
+			case 2:
+				break;
+			}
 			// recalculate positions of cactus
+			if (randomframe() == 0) {} // obtain a random number 0, 1, or 2
 			Cacti.x += Cacti.velx;
 			Cacdi.x += Cacdi.velx;
 			Cactri.x += Cactri.velx;
@@ -272,7 +284,7 @@ int main(void) {
 			// redraw
 			LCD.Clear();
 			platformdraw();
-			LCD.WriteAt(Dino.score, 250, 15);
+			LCD.WriteAt(score, 250, 15);
 			dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
 			
 			if (frontCactus == 0) { obstacledraw(Cacti.theme, Cacti.frame, Cacti.x, Cacti.y); }
@@ -280,7 +292,7 @@ int main(void) {
 			else if (frontCactus == 2) { obstacledraw(Cactri.theme, Cactri.frame, Cactri.x, Cactri.y); }
 			
         } // End of check time statement
-    } // End of while gameloop statement
+	} while (gameLoop); // End of while gameloop statement
 } //End of main loop
 
 // Dino Constructor

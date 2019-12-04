@@ -81,3 +81,4 @@ Day 9 (12/3/19)
 	- Score and high score
 	- Title and credits
 	- Documentation of images and video
+	- Width of the replay button
