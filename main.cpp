@@ -2,6 +2,16 @@
  * Gary Sung, Shawn Jacobsen   *
  * RJF 12:40 - SDP Project     *
  * *****************************/
+// Project Requirements:
+// Class				Line 70
+// For loop				Line 103
+// Do-While Loop		Line 106
+// If/Else				Line 110
+// Logical Operator		Line 110
+// Relational Operator	Line 115
+// Switch/Case			Line 126
+// While Loop			Line 190
+
 
 // Preprocessor directives
 #include <stdlib.h>
@@ -90,7 +100,7 @@ int main(void) {
 	replay.SetProperties("REPLAY", 159, 102, 84, 40, GOLDENROD, GOLDENROD);
 
 	// random for loop
-	for (int i = 0; i < 1; i++) { int j; }
+	for (int i = 0; i < 1; i++);
 
     // Main Loop
     do {
