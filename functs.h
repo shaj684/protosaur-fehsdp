@@ -482,3 +482,66 @@ void gameoverdraw() {
 	LCD.DrawHorizontalLine(63, 257, 262);
 	LCD.DrawHorizontalLine(64, 257, 262);
 }
+
+void clouddraw() {
+	LCD.SetFontColor(LIGHTSKYBLUE);						// Dark areas of cloud
+	LCD.DrawVerticalLine(0 + x, 33 + y, 36 + y);		
+
+	LCD.DrawHorizontalLine(39 + y, 1 + x, 31 + x);		// Left
+	LCD.DrawVerticalLine(1 + x, 33 + y, 36 + y);
+	LCD.DrawHorizontalLine(32 + y, 1 + x, 2 + x);
+	LCD.DrawHorizontalLine(37 + y, 0 + x, 2 + x);
+	LCD.DrawHorizontalLine(38 + y, 1 + x, 3 + x);
+
+	LCD.DrawHorizontalLine(34 + y, 10 + x, 11 + x);		// Mid Left
+	LCD.DrawHorizontalLine(35 + y, 9 + x, 10 + x);
+	LCD.DrawPixel(9 + x, 36 + y);
+	LCD.DrawHorizontalLine(37 + y, 9 + x, 10 + x);
+	LCD.DrawHorizontalLine(38 + y, 10 + x, 11 + x);
+
+	LCD.DrawVerticalLine(15 + x, 34 + y, 35 + y);		// Mid
+	LCD.DrawVerticalLine(16 + x, 31 + y, 36 + y);
+	LCD.DrawVerticalLine(17 + x, 30 + y, 33 + y);
+	LCD.DrawVerticalLine(18 + x, 30 + y, 32 + y);
+	LCD.DrawVerticalLine(19 + x, 30 + y, 31 + y);
+	LCD.DrawVerticalLine(20 + x, 29 + y, 30 + y);
+	LCD.DrawVerticalLine(21 + x, 36 + y, 38 + y);
+	LCD.DrawPixel(22 + x, 35 + y);
+	LCD.DrawVerticalLine(2 + x, 37 + y, 38 + y);
+	LCD.DrawPixel(23 + x, 38 + y);
+	LCD.DrawPixel(27 + x, 38 + y);
+
+	LCD.SetFontColor(LIGHTSTEELBLUE);					// Light area of cloud
+
+	LCD.DrawHorizontalLine(31 + y, 3 + x, 4 + x);		// Left
+	LCD.DrawHorizontalLine(32 + y, 3 + x, 5 + x);
+	LCD.DrawHorizontalLine(33 + y, 2 + x, 6 + x);
+	LCD.DrawHorizontalLine(34 + y, 2 + x, 6 + x);
+	LCD.DrawHorizontalLine(35 + y, 2 + x, 7 + x);
+	LCD.DrawHorizontalLine(36 + y, 2 + x, 8 + x);
+	LCD.DrawHorizontalLine(37 + y, 3 + x, 8 + x);
+	LCD.DrawHorizontalLine(38 + y, 4 + x, 9 + x);
+
+	LCD.DrawPixel(10 + x, 36 + y);						// Mid
+	LCD.DrawVerticalLine(11 + x, 35 + y, 37 + y);
+	LCD.DrawVerticalLine(12 + x, 34 + y, 38 + y);
+	LCD.DrawHorizontalLine(34 + y, 17 + x, 26 + x);
+	LCD.DrawHorizontalLine(35 + y, 17 + x, 21 + x);
+	LCD.DrawHorizontalLine(36 + y, 13 + x, 15 + x);
+	LCD.DrawHorizontalLine(36 + y, 17 + x, 20 + x);
+	LCD.DrawHorizontalLine(37 + y, 13 + x, 20 + x);
+	LCD.DrawHorizontalLine(38 + y, 13 + x, 20 + x);
+
+	LCD.DrawHorizontalLine(33 + y, 18 + x, 24 + x);
+	LCD.DrawHorizontalLine(32 + y, 19 + x, 24 + x);
+	LCD.DrawHorizontalLine(31 + y, 20 + x, 24 + x);
+	LCD.DrawHorizontalLine(30 + y, 21 + x, 22 + x);
+	LCD.DrawPixel(21 + x, 29 + y);
+
+	LCD.DrawHorizontalLine(35 + y, 23 + x, 27 + x);
+	LCD.DrawHorizontalLine(36 + y, 22 + x, 28 + x);
+	LCD.DrawHorizontalLine(37 + y, 23 + x, 29 + x);
+	LCD.DrawHorizontalLine(38 + y, 24 + x, 26 + x);
+	LCD.DrawHorizontalLine(38 + y, 28 + x, 31 + x);
+	
+}
