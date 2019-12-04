@@ -82,3 +82,14 @@ Day 9 (12/3/19)
 	- Title and credits
 	- Documentation of images and video
 	- Width of the replay button
+
+Day 10 (12/4/19)
+	- Checking cactus creation
+	- Clouds
+	- Noise at checkpoints
+	- Gravitational force
+	- Score
+	- Replay / Menu
+		- Display instructions
+		- check positions
+	- 

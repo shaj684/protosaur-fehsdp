@@ -104,6 +104,11 @@ int main(void) {
 		// random for loop
 		for (int i = 0; i < 1; i++);
 
+		// Waiting for button press to start game
+		dinodraw(Dino.theme, Dino.frame, Dino.x, Dino.y);
+		LCD.WriteAt("Begin: Press Left",130,102);
+		while(!Button.LeftPressed());
+		LCD.Clear();
 		// Main Loop
 		do {
 			
@@ -271,7 +276,9 @@ int main(void) {
 					break;
 				}
 				// recalculate positions of cactus
-				if (randomframe() == 0) {} // obtain a random number 0, 1, or 2
+				if (frontCactus == 0) {
+					Cacti.x += Cacti.velx;
+				} // obtain a random number 0, 1, or 2
 				Cacti.x += Cacti.velx;
 				Cacdi.x += Cacdi.velx;
 				Cactri.x += Cactri.velx;
