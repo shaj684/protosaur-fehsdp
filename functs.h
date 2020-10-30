@@ -236,6 +236,13 @@ void dinodraw(int theme, int frame, int x, int y) {
 		LCD.DrawHorizontalLine(38 + y, 20 + x, 23 + x);
 		LCD.DrawHorizontalLine(39 + y, 10 + x, 13 + x);
 		LCD.DrawHorizontalLine(39 + y, 20 + x, 23 + x);
+		
+		LCD.SetFontColor(BLACK);
+		LCD.DrawHorizontalLine(2 + y, 24 + x, 27 + x);
+		LCD.DrawVerticalLine(24 + x, 3 + y, 4 + y);
+		LCD.DrawVerticalLine(27 + x, 3 + y, 4 + y);
+		LCD.DrawHorizontalLine(5 + y, 24 + x, 27 + x);
+		LCD.SetFontColor(GHOSTWHITE);
 		break;
 	default:
 		break;
@@ -483,7 +490,8 @@ void gameoverdraw() {
 	LCD.DrawHorizontalLine(64, 257, 262);
 }
 
-void clouddraw() {
+void clouddraw(int x, int y) {
+
 	LCD.SetFontColor(LIGHTSKYBLUE);						// Dark areas of cloud
 	LCD.DrawVerticalLine(0 + x, 33 + y, 36 + y);		
 
@@ -543,5 +551,4 @@ void clouddraw() {
 	LCD.DrawHorizontalLine(37 + y, 23 + x, 29 + x);
 	LCD.DrawHorizontalLine(38 + y, 24 + x, 26 + x);
 	LCD.DrawHorizontalLine(38 + y, 28 + x, 31 + x);
-	
 }
