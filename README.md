@@ -1,6 +1,6 @@
 # protosaur-fehsdp
-Protosaur, the game. Developed for OSU's FEH SDP.
-A c++ based application imbedded on OSU's proprietary Proteus devices. The game resembles that of Google's Dinosaur Game.
+Protosaur, the game. Developed for OSU's FEH SDP.</br></br>
+A C++ application embedded on OSU's proprietary Proteus devices. The game resembles that of Google's Dinosaur Game.
 
 # Pseudocode:
 
